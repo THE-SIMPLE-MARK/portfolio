@@ -1,10 +1,10 @@
-import react from '@vitejs/plugin-react';
-import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import { defineConfig } from 'vite';
-import tsConfigPaths from 'vite-tsconfig-paths';
-import tailwindcss from '@tailwindcss/vite';
-import mdx from 'fumadocs-mdx/vite';
-import mkcert from 'vite-plugin-mkcert';
+import react from "@vitejs/plugin-react";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { defineConfig } from "vite";
+import tsConfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "@tailwindcss/vite";
+import mdx from "fumadocs-mdx/vite";
+import mkcert from "vite-plugin-mkcert";
 
 export default defineConfig({
   server: {
@@ -12,10 +12,10 @@ export default defineConfig({
   },
   plugins: [
     mkcert(),
-    mdx(await import('./source.config')),
+    mdx(await import("./source.config")),
     tailwindcss(),
     tsConfigPaths({
-      projects: ['./tsconfig.json'],
+      projects: ["./tsconfig.json"],
     }),
     tanstackStart({
       prerender: {

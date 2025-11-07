@@ -1,24 +1,24 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-import { DocsLayout } from 'fumadocs-ui/layouts/docs';
-import { createServerFn } from '@tanstack/react-start';
-import { source } from '@/lib/source';
-import type * as PageTree from 'fumadocs-core/page-tree';
-import { useMemo } from 'react';
-import { docs } from '@/.source';
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import type * as PageTree from "fumadocs-core/page-tree";
+import { createClientLoader } from "fumadocs-mdx/runtime/vite";
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import defaultMdxComponents from "fumadocs-ui/mdx";
 import {
   DocsBody,
   DocsDescription,
   DocsPage,
   DocsTitle,
-} from 'fumadocs-ui/page';
-import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { createClientLoader } from 'fumadocs-mdx/runtime/vite';
-import { baseOptions } from '@/lib/layout.shared';
+} from "fumadocs-ui/page";
+import { useMemo } from "react";
+import { docs } from "@/.source";
+import { baseOptions } from "@/lib/layout.shared";
+import { source } from "@/lib/source";
 
-export const Route = createFileRoute('/docs/$')({
+export const Route = createFileRoute("/docs/$")({
   component: Page,
   loader: async ({ params }) => {
-    const slugs = params._splat?.split('/') ?? [];
+    const slugs = params._splat?.split("/") ?? [];
     const data = await loader({ data: slugs });
     await clientLoader.preload(data.path);
     return data;
@@ -26,7 +26,7 @@ export const Route = createFileRoute('/docs/$')({
 });
 
 const loader = createServerFn({
-  method: 'GET',
+  method: "GET",
 })
   .inputValidator((slugs: string[]) => slugs)
   .handler(async ({ data: slugs }) => {
@@ -40,7 +40,7 @@ const loader = createServerFn({
   });
 
 const clientLoader = createClientLoader(docs.doc, {
-  id: 'docs',
+  id: "docs",
   component({ toc, frontmatter, default: MDX }) {
     return (
       <DocsPage toc={toc}>
@@ -75,11 +75,12 @@ function Page() {
 
 function transformPageTree(root: PageTree.Root): PageTree.Root {
   function mapNode<T extends PageTree.Node>(item: T): T {
-    if (typeof item.icon === 'string') {
+    if (typeof item.icon === "string") {
       item = {
         ...item,
         icon: (
           <span
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: this is a valid use case for dangerouslySetInnerHTML
             dangerouslySetInnerHTML={{
               __html: item.icon,
             }}
@@ -88,7 +89,7 @@ function transformPageTree(root: PageTree.Root): PageTree.Root {
       };
     }
 
-    if (item.type === 'folder') {
+    if (item.type === "folder") {
       return {
         ...item,
         index: item.index ? mapNode(item.index) : undefined,
