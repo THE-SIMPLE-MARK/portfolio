@@ -26,10 +26,10 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": [
+      "~/*": [
         "./src/*"
       ],
-      "@/.source": [
+      "~/.source": [
         ".source"
       ]
     },

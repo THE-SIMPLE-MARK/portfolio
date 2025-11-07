@@ -11,9 +11,9 @@ import {
   DocsTitle,
 } from "fumadocs-ui/page";
 import { useMemo } from "react";
-import { docs } from "@/.source";
-import { baseOptions } from "@/lib/layout.shared";
-import { source } from "@/lib/source";
+import { docs } from "~/.source";
+import { baseOptions } from "~/lib/layout.shared";
+import { source } from "~/lib/source";
 
 export const Route = createFileRoute("/blog/$")({
   component: Page,
