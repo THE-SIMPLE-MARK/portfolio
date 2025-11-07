@@ -11,13 +11,13 @@ function Home() {
     <HomeLayout {...baseOptions()} className="text-center py-32 justify-center">
       <h1 className="font-medium text-xl mb-4">Fumadocs on Tanstack Start.</h1>
       <Link
-        to="/docs/$"
+        to="/blog/$"
         params={{
           _splat: "",
         }}
         className="px-3 py-2 rounded-lg bg-fd-primary text-fd-primary-foreground font-medium text-sm mx-auto"
       >
-        Open Docs
+        Open Blog
       </Link>
     </HomeLayout>
   );
