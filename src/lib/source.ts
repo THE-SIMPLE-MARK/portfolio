@@ -10,6 +10,7 @@ export const source = loader({
       return;
     }
 
+    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: idk it just works
     if (icon in icons) return icons[icon as keyof typeof icons];
   },
 });
