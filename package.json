@@ -8,7 +8,8 @@
     "build": "vite build",
     "start": "node .output/server/index.mjs",
     "postinstall": "fumadocs-mdx",
-    "lint": "biome check",
+    "lint:check": "biome check",
+    "lint": "biome lint --write",
     "format": "biome format --write"
   },
   "dependencies": {
