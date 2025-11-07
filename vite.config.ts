@@ -4,12 +4,14 @@ import { defineConfig } from 'vite';
 import tsConfigPaths from 'vite-tsconfig-paths';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from 'fumadocs-mdx/vite';
+import mkcert from 'vite-plugin-mkcert';
 
 export default defineConfig({
   server: {
     port: 3000,
   },
   plugins: [
+    mkcert(),
     mdx(await import('./source.config')),
     tailwindcss(),
     tsConfigPaths({
