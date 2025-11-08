@@ -12,8 +12,8 @@ function Home() {
           This is Márk Böszörményi.
         </h1>
         <p>
-          This is going to be my portfolio kind of website. Coming soon{" "}
-          <sup>TM</sup>. <br /> For now, you can check out my blog {";)"}
+          This is going to be my portfolio kind of website soon™.
+          <br /> For now, you can check out my blog {";)"}
         </p>
       </div>
 
