@@ -1,8 +1,8 @@
 import tailwindcss from "@tailwindcss/vite";
+import { nitroV2Plugin } from "@tanstack/nitro-v2-vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import mdx from "fumadocs-mdx/vite";
-import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import tsConfigPaths from "vite-tsconfig-paths";
@@ -12,9 +12,9 @@ export default defineConfig({
 		port: 3000,
 	},
 	plugins: [
-		// TODO: remove once nitro no longer has bugs in development
-		process.env.NODE_ENV === "production" && nitro(),
-		process.env.NODE_ENV === "development" && mkcert(),
+		// @ts-expect-error - idk at this point, it just works
+		nitroV2Plugin(),
+		mkcert(),
 		mdx(await import("./source.config")),
 		tailwindcss(),
 		tsConfigPaths({
