@@ -42,7 +42,7 @@ const clientLoader = createClientLoader(docs.doc, {
   id: "blog",
   component({ toc, frontmatter, default: MDX }) {
     return (
-      <DocsPage toc={toc}>
+      <DocsPage toc={toc} tableOfContent={{ style: "clerk" }}>
         <DocsTitle>{frontmatter.title}</DocsTitle>
         <DocsDescription>{frontmatter.description}</DocsDescription>
         <DocsBody>
@@ -66,7 +66,11 @@ function Page() {
   );
 
   return (
-    <DocsLayout nav={{ title: "Blog n' Stuff" }} tree={tree}>
+    <DocsLayout
+      nav={{ title: "Blog n' Stuff" }}
+      tree={tree}
+      themeSwitch={{ mode: "light-dark-system" }}
+    >
       <Content />
     </DocsLayout>
   );
