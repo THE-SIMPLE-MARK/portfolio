@@ -6,6 +6,7 @@ node_modules
 .output
 .nitro
 /build/
+/dist/
 /api/
 /server/build
 /public/build
