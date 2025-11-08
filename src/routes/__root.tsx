@@ -22,7 +22,10 @@ export const Route = createRootRoute({
 				title: "Márk's Portfolio",
 			},
 		],
-		links: [{ rel: "stylesheet", href: appCss }],
+		links: [
+			{ rel: "stylesheet", href: appCss },
+			{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+		],
 	}),
 	component: RootComponent,
 });
