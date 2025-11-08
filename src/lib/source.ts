@@ -3,14 +3,14 @@ import * as icons from "lucide-static";
 import { create, docs } from "~/.source";
 
 export const source = loader({
-  source: await create.sourceAsync(docs.doc, docs.meta),
-  baseUrl: "/blog",
-  icon(icon) {
-    if (!icon) {
-      return;
-    }
+	source: await create.sourceAsync(docs.doc, docs.meta),
+	baseUrl: "/blog",
+	icon(icon) {
+		if (!icon) {
+			return;
+		}
 
-    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: idk it just works
-    if (icon in icons) return icons[icon as keyof typeof icons];
-  },
+		// biome-ignore lint/performance/noDynamicNamespaceImportAccess: idk it just works
+		if (icon in icons) return icons[icon as keyof typeof icons];
+	},
 });

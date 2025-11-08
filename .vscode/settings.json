@@ -1,8 +1,19 @@
 {
-  "biome.enabled": true,
-  "editor.defaultFormatter": "biomejs.biome",
-  "editor.codeActionsOnSave": {
-    "source.organizeImports.biome": "explicit",
-    "source.fixAll.biome": "explicit"
-  }
+	// indentation
+	"editor.detectIndentation": false,
+	"editor.tabSize": 2,
+	"editor.indentSize": "tabSize",
+	"editor.insertSpaces": false,
+	// typescript
+	"typescript.tsserver.experimental.enableProjectDiagnostics": true, // project-wide type checking
+	"typescript.tsdk": "node_modules/typescript/lib",
+	// formatting
+	"biome.enabled": true,
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.biome": "explicit"
+	}
 }
