@@ -1,6 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { HomeLayout } from "fumadocs-ui/layouts/home";
-import { baseOptions } from "~/lib/layout.shared";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -8,8 +6,17 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <HomeLayout {...baseOptions()} className="text-center py-32 justify-center">
-      <h1 className="font-medium text-xl mb-4">Fumadocs on Tanstack Start.</h1>
+    <div className="w-full h-screen flex flex-col gap-4 items-center justify-center px-2">
+      <div className="text-center">
+        <h1 className="font-medium text-5xl mb-4 font-handwritten">
+          This is Márk Böszörményi.
+        </h1>
+        <p>
+          This is going to be my portfolio kind of website. Coming soon{" "}
+          <sup>TM</sup>. <br /> For now, you can check out my blog {";)"}
+        </p>
+      </div>
+
       <Link
         to="/blog/$"
         params={{
@@ -19,6 +26,6 @@ function Home() {
       >
         Open Blog
       </Link>
-    </HomeLayout>
+    </div>
   );
 }

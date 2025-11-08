@@ -4,7 +4,7 @@ import { create, docs } from "~/.source";
 
 export const source = loader({
   source: await create.sourceAsync(docs.doc, docs.meta),
-  baseUrl: "/docs",
+  baseUrl: "/blog",
   icon(icon) {
     if (!icon) {
       return;

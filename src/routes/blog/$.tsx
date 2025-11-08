@@ -12,7 +12,6 @@ import {
 } from "fumadocs-ui/page";
 import { useMemo } from "react";
 import { docs } from "~/.source";
-import { baseOptions } from "~/lib/layout.shared";
 import { source } from "~/lib/source";
 
 export const Route = createFileRoute("/blog/$")({
@@ -40,7 +39,7 @@ const loader = createServerFn({
   });
 
 const clientLoader = createClientLoader(docs.doc, {
-  id: "docs",
+  id: "blog",
   component({ toc, frontmatter, default: MDX }) {
     return (
       <DocsPage toc={toc}>
@@ -67,7 +66,7 @@ function Page() {
   );
 
   return (
-    <DocsLayout {...baseOptions()} tree={tree}>
+    <DocsLayout nav={{ title: "Blog n' Stuff" }} tree={tree}>
       <Content />
     </DocsLayout>
   );
