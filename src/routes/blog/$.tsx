@@ -1,6 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
 import type * as PageTree from "fumadocs-core/page-tree";
 import { createClientLoader } from "fumadocs-mdx/runtime/vite";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
@@ -33,7 +32,6 @@ export const Route = createFileRoute("/blog/$")({
 const loader = createServerFn({
 	method: "GET",
 })
-	.middleware([staticFunctionMiddleware])
 	.inputValidator((slugs: string[]) => slugs)
 	.handler(async ({ data: slugs }) => {
 		const page = source.getPage(slugs);
