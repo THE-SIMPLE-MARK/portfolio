@@ -3,7 +3,6 @@ import { createServerFn } from "@tanstack/react-start";
 import type * as PageTree from "fumadocs-core/page-tree";
 import { createClientLoader } from "fumadocs-mdx/runtime/vite";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
-import defaultMdxComponents from "fumadocs-ui/mdx";
 import {
 	DocsBody,
 	DocsDescription,
@@ -12,6 +11,7 @@ import {
 } from "fumadocs-ui/page";
 import { useMemo } from "react";
 import { docs } from "~/.source";
+import { getMDXComponents } from "~/lib/mdx-components";
 import { source } from "~/lib/source";
 
 export const Route = createFileRoute("/blog/$")({
@@ -50,11 +50,7 @@ const clientLoader = createClientLoader(docs.doc, {
 				<DocsTitle>{frontmatter.title}</DocsTitle>
 				<DocsDescription>{frontmatter.description}</DocsDescription>
 				<DocsBody>
-					<MDX
-						components={{
-							...defaultMdxComponents,
-						}}
-					/>
+					<MDX components={getMDXComponents()} />
 				</DocsBody>
 			</DocsPage>
 		);
