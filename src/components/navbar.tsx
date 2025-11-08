@@ -7,6 +7,7 @@ export function Navbar() {
 			<span className="text-fd-muted-foreground line-through cursor-not-allowed">
 				Projects
 			</span>
+			<NavbarLink to="https://github.com/THE-SIMPLE-MARK" text="GitHub" />
 			<NavbarLink to="/blog/$" text="Blog" />
 		</nav>
 	);
