@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
 import type * as PageTree from "fumadocs-core/page-tree";
 import { createClientLoader } from "fumadocs-mdx/runtime/vite";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
@@ -11,6 +12,7 @@ import {
 } from "fumadocs-ui/page";
 import { useMemo } from "react";
 import { docs } from "~/.source";
+import { LLMCopyButton, ViewOptions } from "~/components/page-actions";
 import { getMDXComponents } from "~/lib/mdx-components";
 import { source } from "~/lib/source";
 
@@ -20,13 +22,19 @@ export const Route = createFileRoute("/blog/$")({
 		const slugs = params._splat?.split("/") ?? [];
 		const data = await loader({ data: slugs });
 		await clientLoader.preload(data.path);
-		return data;
+
+		return {
+			...data,
+			mdxPath: `${slugs.length > 0 && slugs[0] !== "" ? slugs.join("/") : "index"}.mdx`,
+		};
 	},
 });
 
 const loader = createServerFn({
 	method: "GET",
 })
+	// @ts-expect-error - this is a valid middleware (might be partially related to https://github.com/TanStack/router/issues/5342)
+	.middleware([staticFunctionMiddleware])
 	.inputValidator((slugs: string[]) => slugs)
 	.handler(async ({ data: slugs }) => {
 		const page = source.getPage(slugs);
@@ -41,6 +49,8 @@ const loader = createServerFn({
 const clientLoader = createClientLoader(docs.doc, {
 	id: "blog",
 	component({ toc, frontmatter, default: MDX }) {
+		const data = Route.useLoaderData();
+
 		return (
 			<DocsPage
 				toc={toc}
@@ -48,7 +58,18 @@ const clientLoader = createClientLoader(docs.doc, {
 				footer={{ enabled: false }}
 			>
 				<DocsTitle>{frontmatter.title}</DocsTitle>
-				<DocsDescription>{frontmatter.description}</DocsDescription>
+				<DocsDescription className="mb-0">
+					{frontmatter.description}
+				</DocsDescription>
+
+				<div className="flex flex-row gap-2 items-center border-b pb-6">
+					<LLMCopyButton markdownUrl={`/blog/${data.mdxPath}`} />
+					<ViewOptions
+						markdownUrl={`/blog/${data.mdxPath}`}
+						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/docs/${data.mdxPath}`}
+					/>
+				</div>
+
 				<DocsBody>
 					<MDX components={getMDXComponents()} />
 				</DocsBody>
