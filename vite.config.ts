@@ -32,7 +32,7 @@ export default defineConfig({
 					prerender: { enabled: true },
 				})),
 				...docsPathsWithIndex.map((path) => ({
-					path: `${path}.mdx`,
+					path: `${path}.md`,
 					prerender: { enabled: true },
 				})),
 			],

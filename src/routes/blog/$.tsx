@@ -20,12 +20,12 @@ import { source } from "~/lib/source";
 export const Route = createFileRoute("/blog/$")({
 	server: {
 		handlers: {
-			// this handles *.mdx requests
+			// this handles *.md requests
 			GET: async ({ params, next }) => {
 				const splat = params._splat ?? "";
 
-				// skip if not *.mdx
-				if (!splat.endsWith(".mdx")) return next();
+				// skip if not *.md
+				if (!splat.endsWith(".md")) return next();
 
 				const pathWithoutExt = splat.slice(0, -4);
 				const isRootPage = pathWithoutExt === "" || pathWithoutExt === "index";
@@ -53,7 +53,7 @@ export const Route = createFileRoute("/blog/$")({
 
 		return {
 			...data,
-			mdxPath: `${slugs.length > 0 && slugs[0] !== "" ? slugs.join("/") : "index"}.mdx`,
+			mdPath: `${slugs.length > 0 && slugs[0] !== "" ? slugs.join("/") : "index"}.md`,
 		};
 	},
 });
@@ -90,10 +90,10 @@ const clientLoader = createClientLoader(docs.doc, {
 				</DocsDescription>
 
 				<div className="flex flex-row gap-2 items-center border-b pb-6">
-					<LLMCopyButton markdownUrl={`/blog/${data.mdxPath}`} />
+					<LLMCopyButton markdownUrl={`/blog/${data.mdPath}`} />
 					<ViewOptions
-						markdownUrl={`/blog/${data.mdxPath}`}
-						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/docs/${data.mdxPath}`}
+						markdownUrl={`/blog/${data.mdPath}`}
+						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/docs/${data.mdPath}`}
 					/>
 				</div>
 

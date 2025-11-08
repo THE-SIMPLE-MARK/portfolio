@@ -13,7 +13,7 @@ export const Route = createFileRoute("/llms.txt")({
 
 				const pages = source.getPages();
 				for (const page of pages) {
-					const url = `${page.url}.mdx`;
+					const url = `${page.url}.md`;
 					lines.push(`- [${page.data.title}](${url})`);
 				}
 
