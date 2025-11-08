@@ -4,6 +4,7 @@ import {
 	Outlet,
 	Scripts,
 } from "@tanstack/react-router";
+import { Analytics } from "@vercel/analytics/react";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import type * as React from "react";
 import appCss from "~/styles/app.css?url";
@@ -47,6 +48,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body className="flex flex-col min-h-screen">
 				<RootProvider>{children}</RootProvider>
 				<Scripts />
+				<Analytics />
 			</body>
 		</html>
 	);
