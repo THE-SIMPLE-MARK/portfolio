@@ -27,7 +27,7 @@ export const Route = createFileRoute("/blog/$")({
 				// skip if not *.md
 				if (!splat.endsWith(".md")) return next();
 
-				const pathWithoutExt = splat.slice(0, -4);
+				const pathWithoutExt = splat.slice(0, -3);
 				const isRootPage = pathWithoutExt === "" || pathWithoutExt === "index";
 				const slugs = isRootPage
 					? []
