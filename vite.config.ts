@@ -1,8 +1,8 @@
 import tailwindcss from "@tailwindcss/vite";
-import { nitroV2Plugin } from "@tanstack/nitro-v2-vite-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import mdx from "fumadocs-mdx/vite";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import tsConfigPaths from "vite-tsconfig-paths";
@@ -15,7 +15,6 @@ export default defineConfig({
 		react(),
 		tailwindcss(),
 		mdx(await import("./source.config")),
-		mkcert(),
 		tsConfigPaths({
 			projects: ["./tsconfig.json"],
 		}),
@@ -24,6 +23,7 @@ export default defineConfig({
 				enabled: true,
 			},
 		}),
-		nitroV2Plugin(),
+		nitro(),
+		mkcert(),
 	],
 });
