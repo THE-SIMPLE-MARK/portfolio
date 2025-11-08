@@ -33,7 +33,6 @@ export const Route = createFileRoute("/blog/$")({
 const loader = createServerFn({
 	method: "GET",
 })
-	// @ts-expect-error - this is a valid middleware (might be partially related to https://github.com/TanStack/router/issues/5342)
 	.middleware([staticFunctionMiddleware])
 	.inputValidator((slugs: string[]) => slugs)
 	.handler(async ({ data: slugs }) => {

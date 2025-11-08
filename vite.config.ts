@@ -12,11 +12,10 @@ export default defineConfig({
 		port: 3000,
 	},
 	plugins: [
-		// @ts-expect-error - idk at this point, it just works
-		nitroV2Plugin(),
-		mkcert(),
-		mdx(await import("./source.config")),
+		react(),
 		tailwindcss(),
+		mdx(await import("./source.config")),
+		mkcert(),
 		tsConfigPaths({
 			projects: ["./tsconfig.json"],
 		}),
@@ -25,6 +24,6 @@ export default defineConfig({
 				enabled: true,
 			},
 		}),
-		react(),
+		nitroV2Plugin(),
 	],
 });

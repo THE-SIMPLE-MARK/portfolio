@@ -4,7 +4,6 @@ import { staticFunctionMiddleware } from "@tanstack/start-static-server-function
 import { source } from "~/lib/source";
 
 const generateLlmsFile = createServerFn({ method: "GET" })
-	// @ts-expect-error - this is a valid middleware (might be partially related to https://github.com/TanStack/router/issues/5342)
 	.middleware([staticFunctionMiddleware])
 	.handler(async () => {
 		const lines: string[] = [];

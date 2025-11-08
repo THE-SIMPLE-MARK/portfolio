@@ -5,7 +5,6 @@ import { getLLMText } from "~/lib/getLLMText";
 import { source } from "~/lib/source";
 
 const getBlogContent = createServerFn({ method: "GET" })
-	// @ts-expect-error - this is a valid middleware (might be partially related to https://github.com/TanStack/router/issues/5342)
 	.middleware([staticFunctionMiddleware])
 	.inputValidator((mdxPath: string) => mdxPath)
 	.handler(async ({ data: mdxPath }) => {
