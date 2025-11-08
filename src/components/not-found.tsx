@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
+import { MainLayoutWrapper } from "./mainLayoutWrapper";
 
 export function NotFound() {
 	return (
-		<div className="w-full h-screen flex flex-col gap-4 items-center text-center justify-center px-2">
-			<div className="flex flex-col items-center gap-4">
+		<MainLayoutWrapper>
+			<div className="flex flex-col items-center gap-4 text-center">
 				<h1 className="text-9xl font-bold text-fd-muted-foreground">404</h1>
 				<h2 className="text-5xl font-semibold font-handwritten mb-4">
 					Page Not Found
@@ -19,6 +20,6 @@ export function NotFound() {
 					Back to Home
 				</Link>
 			</div>
-		</div>
+		</MainLayoutWrapper>
 	);
 }
