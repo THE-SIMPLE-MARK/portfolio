@@ -13,10 +13,38 @@ import {
 import { useMemo } from "react";
 import { docs } from "~/.source";
 import { LLMCopyButton, ViewOptions } from "~/components/page-actions";
+import { getLLMText } from "~/lib/getLLMText";
 import { getMDXComponents } from "~/lib/mdx-components";
 import { source } from "~/lib/source";
 
 export const Route = createFileRoute("/blog/$")({
+	server: {
+		handlers: {
+			// this handles *.mdx requests
+			GET: async ({ params, next }) => {
+				const splat = params._splat ?? "";
+
+				// skip if not *.mdx
+				if (!splat.endsWith(".mdx")) return next();
+
+				const pathWithoutExt = splat.slice(0, -4);
+				const isRootPage = pathWithoutExt === "" || pathWithoutExt === "index";
+				const slugs = isRootPage
+					? []
+					: pathWithoutExt.split("/").filter(Boolean);
+
+				const page = source.getPage(slugs);
+				if (!page) throw notFound();
+
+				const content = await getLLMText(page);
+				return new Response(content, {
+					headers: {
+						"Content-Type": "text/markdown; charset=utf-8",
+					},
+				});
+			},
+		},
+	},
 	component: Page,
 	loader: async ({ params }) => {
 		const slugs = params._splat?.split("/") ?? [];
