@@ -11,7 +11,8 @@ export default defineConfig({
 		port: 3000,
 	},
 	plugins: [
-		nitro(),
+		// TODO: remove once nitro no longer has bugs in development
+		process.env.NODE_ENV === "production" && nitro(),
 		mdx(await import("./source.config")),
 		tailwindcss(),
 		tsConfigPaths({
