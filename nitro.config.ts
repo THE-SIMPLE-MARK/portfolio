@@ -7,4 +7,14 @@ export default defineNitroConfig({
 			baseURL: "/__tsr",
 		},
 	],
+	routeRules: {
+		"/a/**": {
+			proxy: { to: "https://va.vercel-scripts.com/v1/**" },
+		},
+		"/si/**": {
+			proxy: {
+				to: "https://va.vercel-scripts.com/v1/speed-insights/**",
+			},
+		},
+	},
 });

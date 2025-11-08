@@ -5,6 +5,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import type * as React from "react";
 import appCss from "~/styles/app.css?url";
@@ -39,6 +40,9 @@ function RootComponent() {
 	);
 }
 
+const scriptName =
+	process.env.NODE_ENV === "production" ? "script.js" : "script.debug.js";
+
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
@@ -48,7 +52,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body className="flex flex-col min-h-screen">
 				<RootProvider>{children}</RootProvider>
 				<Scripts />
-				<Analytics />
+				<Analytics scriptSrc={`a/${scriptName}`} />
+				<SpeedInsights scriptSrc={`si/${scriptName}`} />
 			</body>
 		</html>
 	);
