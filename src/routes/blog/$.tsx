@@ -1,6 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
 import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
+import { ipAddress } from "@vercel/functions";
 import { getGithubLastEdit } from "fumadocs-core/content/github";
 import type * as PageTree from "fumadocs-core/page-tree";
 import { createClientLoader } from "fumadocs-mdx/runtime/vite";
@@ -12,10 +14,13 @@ import {
 	DocsTitle,
 } from "fumadocs-ui/page";
 import { useMemo } from "react";
+import { z } from "zod";
 import { blog } from "~/.source";
+import { Feedback } from "~/components/feedback";
 import { LLMCopyButton, ViewOptions } from "~/components/page-actions";
 import { getLLMText } from "~/lib/getLLMText";
 import { getMDXComponents } from "~/lib/mdxComponents";
+import { ratelimit } from "~/lib/ratelimit";
 import { source } from "~/lib/source";
 
 export const Route = createFileRoute("/blog/$")({
@@ -81,6 +86,49 @@ const loader = createServerFn({
 		};
 	});
 
+const ratingAction = createServerFn({
+	method: "POST",
+})
+	.inputValidator(
+		z.object({
+			path: z.string(),
+			opinion: z.enum(["good", "bad"]),
+			message: z.string().max(1000),
+		}),
+	)
+	.handler(async ({ data: { path, opinion, message } }) => {
+		const request = getRequest();
+		const ip = ipAddress(request);
+		if (!ip && process.env.NODE_ENV === "production")
+			throw new Error("IP_ERROR");
+
+		const { success } = await ratelimit.limit(ip ?? "127.0.0.1");
+		if (!success) throw new Error("RATE_LIMITED");
+
+		const content = `🎉 New feedback received!
+
+**Page**: ${path}
+**Rating**: ${opinion === "good" ? "👍" : "👎"}
+**Message**: ${message}`;
+
+		if (!process.env.DISCORD_WEBHOOK_URL) throw new Error("CONFIG_ERROR");
+
+		const response = await fetch(process.env.DISCORD_WEBHOOK_URL, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				content,
+			}),
+		});
+		console.log(response);
+
+		if (response.status === 429) throw new Error("RATE_LIMITED");
+
+		if (!response.ok) throw new Error("API_ERROR");
+	});
+
 const clientLoader = createClientLoader(blog.doc, {
 	id: "blog",
 	component({ toc, frontmatter, default: MDX }) {
@@ -108,6 +156,12 @@ const clientLoader = createClientLoader(blog.doc, {
 				<DocsBody>
 					<MDX components={getMDXComponents()} />
 				</DocsBody>
+
+				<Feedback
+					onRateAction={async ({ path, opinion, message }) => {
+						await ratingAction({ data: { path, opinion, message } });
+					}}
+				/>
 			</DocsPage>
 		);
 	},
