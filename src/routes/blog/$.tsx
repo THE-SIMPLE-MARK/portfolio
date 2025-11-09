@@ -73,12 +73,15 @@ const loader = createServerFn({
 		const page = source.getPage(slugs);
 		if (!page) throw notFound();
 
-		const lastModified = await getGithubLastEdit({
-			owner: "THE-SIMPLE-MARK",
-			repo: "portfolio",
-			path: `content/blog/${page.path}`,
-			token: process.env.GITHUB_TOKEN,
-		});
+		const lastModified =
+			process.env.NODE_ENV === "production"
+				? await getGithubLastEdit({
+						owner: "THE-SIMPLE-MARK",
+						repo: "portfolio",
+						path: `content/blog/${page.path}`,
+						token: process.env.GITHUB_TOKEN,
+					})
+				: undefined;
 
 		return {
 			tree: source.pageTree as object,
