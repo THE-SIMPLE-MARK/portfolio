@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
+import { Image } from "@unpic/react";
 import { ipAddress } from "@vercel/functions";
 import { getGithubLastEdit } from "fumadocs-core/content/github";
 import type * as PageTree from "fumadocs-core/page-tree";
@@ -184,7 +185,14 @@ function Page() {
 
 	return (
 		<DocsLayout
-			nav={{ title: "Blog n' Stuff" }}
+			nav={{
+				title: (
+					<div className="flex flex-row items-center gap-2">
+						<Image src="/logo.svg" alt="Logo" width={24} height={24} />
+						<span className="font-heading">Blog n' Stuff</span>
+					</div>
+				),
+			}}
 			tree={tree}
 			themeSwitch={{ mode: "light-dark-system" }}
 		>
