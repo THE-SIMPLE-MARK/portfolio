@@ -8,6 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import type * as React from "react";
+import { NotFound } from "~/components/notFound";
 import appCss from "~/styles/app.css?url";
 
 export const Route = createRootRoute({
@@ -30,6 +31,7 @@ export const Route = createRootRoute({
 		],
 	}),
 	component: RootComponent,
+	notFoundComponent: NotFound,
 });
 
 function RootComponent() {

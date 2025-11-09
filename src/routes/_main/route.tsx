@@ -1,14 +1,14 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { MainLayoutWrapper } from "~/components/mainLayoutWrapper";
+import { MainLayout } from "~/components/mainLayout";
 
 export const Route = createFileRoute("/_main")({
-	component: MainLayout,
+	component: MainLayoutComponent,
 });
 
-function MainLayout() {
+function MainLayoutComponent() {
 	return (
-		<MainLayoutWrapper>
+		<MainLayout>
 			<Outlet />
-		</MainLayoutWrapper>
+		</MainLayout>
 	);
 }

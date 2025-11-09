@@ -128,6 +128,7 @@ export function Feedback({
 					Bad
 				</button>
 			</div>
+
 			<CollapsibleContent className="mt-3">
 				{previous ? (
 					<div className="px-3 py-6 flex flex-col items-center gap-3 bg-fd-card text-fd-muted-foreground text-sm text-center rounded-xl">

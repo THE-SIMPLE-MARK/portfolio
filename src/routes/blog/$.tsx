@@ -18,7 +18,7 @@ import { useMemo } from "react";
 import { z } from "zod";
 import { blog } from "~/.source";
 import { Feedback } from "~/components/feedback";
-import { LLMCopyButton, ViewOptions } from "~/components/page-actions";
+import { LLMCopyButton, ViewOptions } from "~/components/pageActions";
 import { getLLMText } from "~/lib/getLLMText";
 import { getMDXComponents } from "~/lib/mdxComponents";
 import { ratelimit } from "~/lib/ratelimit";
@@ -203,7 +203,7 @@ function Page() {
 
 function transformPageTree(root: PageTree.Root): PageTree.Root {
 	function mapNode<T extends PageTree.Node>(item: T): T {
-		if (typeof item.icon === "string") {
+		if (typeof item.icon === "string")
 			item = {
 				...item,
 				icon: (
@@ -215,17 +215,14 @@ function transformPageTree(root: PageTree.Root): PageTree.Root {
 					/>
 				),
 			};
-		}
 
-		if (item.type === "folder") {
+		if (item.type === "folder")
 			return {
 				...item,
 				index: item.index ? mapNode(item.index) : undefined,
 				children: item.children.map(mapNode),
 			};
-		}
-
-		return item;
+		else return item;
 	}
 
 	return {

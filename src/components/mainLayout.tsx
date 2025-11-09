@@ -1,7 +1,7 @@
 import { Footer } from "./footer";
 import { Navbar } from "./navbar";
 
-export function MainLayoutWrapper({ children }: { children: React.ReactNode }) {
+export function MainLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="container mx-auto px-4 h-screen flex">
 			<Navbar />

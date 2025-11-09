@@ -11,9 +11,9 @@
 	--color-fd-primary: #0087be;
 }
 
-	.dark {
-		--color-fd-primary: #00d9ff;
-	}
+.dark {
+	--color-fd-primary: #00d9ff;
+}
 
 @layer base {
 	h1,
