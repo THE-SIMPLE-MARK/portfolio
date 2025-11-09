@@ -6,6 +6,7 @@ import mdx from "fumadocs-mdx/vite";
 import { nitro } from "nitro/vite";
 import { glob } from "tinyglobby";
 import { defineConfig } from "vite";
+import mkcert from "vite-plugin-mkcert";
 import tsConfigPaths from "vite-tsconfig-paths";
 
 const blogPaths = await getContentPaths();
@@ -44,6 +45,7 @@ export default defineConfig({
 			projects: ["./tsconfig.json"],
 		}),
 		nitro(),
+		mkcert(),
 	],
 });
 
