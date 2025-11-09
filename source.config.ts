@@ -9,4 +9,14 @@ export const blog = defineDocs({
 	},
 })
 
-export default defineConfig()
+export default defineConfig({
+	mdxOptions: {
+		rehypeCodeOptions: {
+			inline: "tailing-curly-colon",
+			themes: {
+				light: "github-light",
+				dark: "github-dark",
+			},
+		},
+	},
+})
