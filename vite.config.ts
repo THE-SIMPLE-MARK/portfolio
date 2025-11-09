@@ -37,6 +37,10 @@ export default defineConfig({
 					prerender: { enabled: true },
 				})),
 			],
+			sitemap: {
+				enabled: true,
+				host: "https://bmarkk.tech",
+			},
 		}),
 		mdx(await import("./source.config")),
 		react(),
