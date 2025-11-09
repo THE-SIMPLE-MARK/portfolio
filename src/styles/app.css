@@ -25,6 +25,13 @@
 	h6 {
 		@apply font-heading;
 	}
+
+	#nd-docs-layout {
+		img[alt=drawing] {
+			@apply mx-auto;
+			height: 500px;
+		}
+	}
 }
 
 @media print {
