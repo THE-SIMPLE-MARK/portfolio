@@ -22,7 +22,7 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "Márk's Portfolio",
+				title: "Márk Böszörményi's Portfolio",
 			},
 		],
 		links: [
