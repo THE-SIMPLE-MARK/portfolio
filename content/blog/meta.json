@@ -1,0 +1,7 @@
+{
+	"title": "Software dev",
+	"description": "Everything software development.",
+	"icon": "Code",
+	"root": true,
+	"pages": ["---Introduction---", "index", "philosophy"]
+}
