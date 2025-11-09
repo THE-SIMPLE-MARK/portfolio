@@ -145,7 +145,10 @@ const clientLoader = createClientLoader(blog.doc, {
 					{frontmatter.description}
 				</DocsDescription>
 
-				<div className="flex flex-row gap-2 items-center border-b pb-6">
+				<div
+					id="page-actions"
+					className="flex flex-row gap-2 items-center border-b pb-6"
+				>
 					<LLMCopyButton markdownUrl={`/blog/${data.mdPath}`} />
 					<ViewOptions
 						markdownUrl={`/blog/${data.mdPath}`}

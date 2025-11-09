@@ -92,6 +92,7 @@ export function Feedback({
 			onOpenChange={(v) => {
 				if (!v) setOpinion(null);
 			}}
+			id="feedback"
 			className="border-y py-3"
 		>
 			<div className="flex flex-row items-center gap-2">

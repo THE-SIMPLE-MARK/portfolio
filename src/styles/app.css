@@ -5,12 +5,42 @@
 @import "@fontsource-variable/atkinson-hyperlegible-next";
 
 @theme {
-  --font-handwritten: "Gloria Hallelujah", cursive;
-  --font-heading: "Atkinson Hyperlegible Next Variable", var(--font-sans);
+	--font-handwritten: "Gloria Hallelujah", cursive;
+	--font-heading: "Atkinson Hyperlegible Next Variable", var(--font-sans);
 }
 
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
-  }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-heading;
+	}
+}
+
+@media print {
+	#nd-docs-layout {
+		--fd-sidebar-width: 0px !important;
+	}
+	#nd-sidebar,
+	#nd-sidebar-mobile,
+	#nd-subnav,
+	#nd-tocnav,
+	#page-actions,
+	#feedback,
+	#feedback + div,
+	#feedback + div + div {
+		display: none;
+	}
+
+	article {
+		@apply pt-0;
+		@apply px-0;
+	}
+	#nd-page,
+	#nd-docs-layout {
+		@apply pt-0;
+	}
 }
