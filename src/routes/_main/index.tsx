@@ -1,7 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { buttonVariants } from "~/components/ui/button";
+import { createMetadata } from "~/lib/metadata";
 
 export const Route = createFileRoute("/_main/")({
+	head: () =>
+		createMetadata({
+			title: "Home",
+			url: "/",
+		}),
 	component: Home,
 });
 

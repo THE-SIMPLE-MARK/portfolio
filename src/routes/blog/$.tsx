@@ -21,6 +21,7 @@ import { Feedback } from "~/components/feedback";
 import { LLMCopyButton, ViewOptions } from "~/components/pageActions";
 import { getLLMText } from "~/lib/getLLMText";
 import { getMDXComponents } from "~/lib/mdxComponents";
+import { createMetadata } from "~/lib/metadata";
 import { ratelimit } from "~/lib/ratelimit";
 import { source } from "~/lib/source";
 
@@ -52,7 +53,21 @@ export const Route = createFileRoute("/blog/$")({
 			},
 		},
 	},
+	head: async ({ params }) => {
+		const slugs = params._splat?.split("/").filter(Boolean) ?? [];
+		const page = source.getPage(slugs);
+		if (!page) return {};
+
+		const url = page.url === "/" ? "/blog" : `/blog${page.url}`;
+		return createMetadata({
+			title: page.data.title,
+			titleSuffix: "Márk's Blog",
+			description: page.data.description,
+			url,
+		});
+	},
 	component: Page,
+	// @ts-expect-error - circular dependency between Route and clientLoader causes TypeScript to infer 'never' for loader return type (it runs tho)
 	loader: async ({ params }) => {
 		const slugs = params._splat?.split("/") ?? [];
 		const data = await loader({ data: slugs });
@@ -144,6 +159,7 @@ const clientLoader = createClientLoader(blog.doc, {
 			<DocsPage
 				toc={toc}
 				tableOfContent={{ style: "clerk" }}
+				// @ts-expect-error - See above
 				lastUpdate={data.lastModified ? new Date(data.lastModified) : undefined}
 			>
 				<DocsTitle>{frontmatter.title}</DocsTitle>
@@ -155,9 +171,14 @@ const clientLoader = createClientLoader(blog.doc, {
 					id="page-actions"
 					className="flex flex-row gap-2 items-center border-b pb-6"
 				>
-					<LLMCopyButton markdownUrl={`/blog/${data.markdownPath}.md`} />
-					<ViewOptions
+					<LLMCopyButton
+						// @ts-expect-error - See above
 						markdownUrl={`/blog/${data.markdownPath}.md`}
+					/>
+					<ViewOptions
+						// @ts-expect-error - See above
+						markdownUrl={`/blog/${data.markdownPath}.md`}
+						// @ts-expect-error - See above
 						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/blog/${data.markdownPath}.mdx`}
 					/>
 				</div>
@@ -178,9 +199,12 @@ const clientLoader = createClientLoader(blog.doc, {
 
 function Page() {
 	const data = Route.useLoaderData();
+	// @ts-expect-error - See above
 	const Content = clientLoader.getComponent(data.path);
 	const tree = useMemo(
+		// @ts-expect-error - See above
 		() => transformPageTree(data.tree as PageTree.Folder),
+		// @ts-expect-error - See above
 		[data.tree],
 	);
 
