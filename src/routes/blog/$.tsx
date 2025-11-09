@@ -157,7 +157,7 @@ const clientLoader = createClientLoader(blog.doc, {
 					<LLMCopyButton markdownUrl={`/blog/${data.mdPath}`} />
 					<ViewOptions
 						markdownUrl={`/blog/${data.mdPath}`}
-						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/docs/${data.mdPath}`}
+						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/blog/${data.mdPath}`}
 					/>
 				</div>
 
