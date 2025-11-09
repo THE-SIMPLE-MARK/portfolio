@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { buttonVariants } from "~/components/ui/button";
-import { createMetadata } from "~/lib/metadata";
+import { createFileRoute, Link } from "@tanstack/react-router"
+import { buttonVariants } from "~/components/ui/button"
+import { createMetadata } from "~/lib/metadata"
 
 export const Route = createFileRoute("/_main/")({
 	head: () =>
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_main/")({
 			url: "/",
 		}),
 	component: Home,
-});
+})
 
 function Home() {
 	return (
@@ -32,5 +32,5 @@ function Home() {
 				Open Blog
 			</Link>
 		</div>
-	);
+	)
 }

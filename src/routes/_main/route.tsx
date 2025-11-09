@@ -1,14 +1,14 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { MainLayout } from "~/components/mainLayout";
+import { createFileRoute, Outlet } from "@tanstack/react-router"
+import { MainLayout } from "~/components/mainLayout"
 
 export const Route = createFileRoute("/_main")({
 	component: MainLayoutComponent,
-});
+})
 
 function MainLayoutComponent() {
 	return (
 		<MainLayout>
 			<Outlet />
 		</MainLayout>
-	);
+	)
 }

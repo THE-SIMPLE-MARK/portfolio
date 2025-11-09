@@ -3,13 +3,13 @@ import {
 	HeadContent,
 	Outlet,
 	Scripts,
-} from "@tanstack/react-router";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
-import { RootProvider } from "fumadocs-ui/provider/tanstack";
-import type * as React from "react";
-import { NotFound } from "~/components/notFound";
-import appCss from "~/styles/app.css?url";
+} from "@tanstack/react-router"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
+import { RootProvider } from "fumadocs-ui/provider/tanstack"
+import type * as React from "react"
+import { NotFound } from "~/components/notFound"
+import appCss from "~/styles/app.css?url"
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -32,18 +32,18 @@ export const Route = createRootRoute({
 	}),
 	component: RootComponent,
 	notFoundComponent: NotFound,
-});
+})
 
 function RootComponent() {
 	return (
 		<RootDocument>
 			<Outlet />
 		</RootDocument>
-	);
+	)
 }
 
 const scriptName =
-	process.env.NODE_ENV === "production" ? "script.js" : "script.debug.js";
+	process.env.NODE_ENV === "production" ? "script.js" : "script.debug.js"
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
@@ -58,5 +58,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<SpeedInsights scriptSrc={`si/${scriptName}`} />
 			</body>
 		</html>
-	);
+	)
 }

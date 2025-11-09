@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router"
 
 export function Navbar() {
 	return (
@@ -10,7 +10,7 @@ export function Navbar() {
 			<NavbarLink to="https://github.com/THE-SIMPLE-MARK" text="GitHub" />
 			<NavbarLink to="/blog/$" text="Blog" />
 		</nav>
-	);
+	)
 }
 
 export function NavbarLink({ to, text }: { to: string; text: string }) {
@@ -18,5 +18,5 @@ export function NavbarLink({ to, text }: { to: string; text: string }) {
 		<Link to={to} className="hover: transition-colors">
 			{text}
 		</Link>
-	);
+	)
 }

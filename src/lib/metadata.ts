@@ -1,13 +1,13 @@
 const baseUrl =
 	process.env.NODE_ENV === "production"
 		? "https://bmarkk.tech"
-		: "http://localhost:3000";
+		: "http://localhost:3000"
 
 export interface MetadataOptions {
-	title: string;
-	description?: string;
-	url?: string;
-	titleSuffix?: string;
+	title: string
+	description?: string
+	url?: string
+	titleSuffix?: string
 }
 
 export function createMetadata({
@@ -16,8 +16,8 @@ export function createMetadata({
 	description = "Márk Böszörményi's portfolio website. (I know my last name is long and unreadable)",
 	url,
 }: MetadataOptions) {
-	const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
-	const fullTitle = `${title} | ${titleSuffix}`;
+	const fullUrl = url ? `${baseUrl}${url}` : baseUrl
+	const fullTitle = `${title} | ${titleSuffix}`
 
 	return {
 		meta: [
@@ -71,5 +71,5 @@ export function createMetadata({
 					]
 				: []),
 		],
-	};
+	}
 }

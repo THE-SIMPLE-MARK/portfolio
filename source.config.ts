@@ -1,4 +1,4 @@
-import { defineConfig, defineDocs } from "fumadocs-mdx/config";
+import { defineConfig, defineDocs } from "fumadocs-mdx/config"
 
 export const blog = defineDocs({
 	dir: "content/blog",
@@ -7,6 +7,6 @@ export const blog = defineDocs({
 			includeProcessedMarkdown: true,
 		},
 	},
-});
+})
 
-export default defineConfig();
+export default defineConfig()

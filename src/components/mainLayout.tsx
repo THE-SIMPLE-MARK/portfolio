@@ -1,5 +1,5 @@
-import { Footer } from "./footer";
-import { Navbar } from "./navbar";
+import { Footer } from "./footer"
+import { Navbar } from "./navbar"
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
 	return (
@@ -12,5 +12,5 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
 			<Footer />
 		</div>
-	);
+	)
 }

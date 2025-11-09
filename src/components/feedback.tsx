@@ -1,16 +1,16 @@
-"use client";
-import { getRouteApi } from "@tanstack/react-router";
-import { cva } from "class-variance-authority";
+"use client"
+import { getRouteApi } from "@tanstack/react-router"
+import { cva } from "class-variance-authority"
 import {
 	Collapsible,
 	CollapsibleContent,
-} from "fumadocs-ui/components/ui/collapsible";
-import { ThumbsDown, ThumbsUp } from "lucide-react";
-import { type SyntheticEvent, useEffect, useState, useTransition } from "react";
-import { cn } from "~/lib/cn";
-import { buttonVariants } from "./ui/button";
+} from "fumadocs-ui/components/ui/collapsible"
+import { ThumbsDown, ThumbsUp } from "lucide-react"
+import { type SyntheticEvent, useEffect, useState, useTransition } from "react"
+import { cn } from "~/lib/cn"
+import { buttonVariants } from "./ui/button"
 
-const route = getRouteApi("/blog/$");
+const route = getRouteApi("/blog/$")
 
 const rateButtonVariants = cva(
 	"inline-flex items-center gap-2 px-3 py-2 rounded-full font-medium border text-sm [&_svg]:size-4 disabled:cursor-not-allowed",
@@ -22,75 +22,75 @@ const rateButtonVariants = cva(
 			},
 		},
 	},
-);
+)
 
 export interface Feedback {
-	opinion: "good" | "bad";
-	path: string;
-	message: string;
+	opinion: "good" | "bad"
+	path: string
+	message: string
 }
 
 export function Feedback({
 	onRateAction,
 }: {
-	onRateAction: (feedback: Feedback) => Promise<void>;
+	onRateAction: (feedback: Feedback) => Promise<void>
 }) {
-	const splat = route.useParams()._splat;
-	const path = splat && splat !== "" ? splat : "index";
-	const [previous, setPrevious] = useState<Feedback | null>(null);
-	const [opinion, setOpinion] = useState<"good" | "bad" | null>(null);
-	const [message, setMessage] = useState("");
-	const [isPending, startTransition] = useTransition();
-	const [error, setError] = useState<string | null>(null);
+	const splat = route.useParams()._splat
+	const path = splat && splat !== "" ? splat : "index"
+	const [previous, setPrevious] = useState<Feedback | null>(null)
+	const [opinion, setOpinion] = useState<"good" | "bad" | null>(null)
+	const [message, setMessage] = useState("")
+	const [isPending, startTransition] = useTransition()
+	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
-		const item = localStorage.getItem(`docs-feedback-${path}`);
+		const item = localStorage.getItem(`docs-feedback-${path}`)
 
-		if (item === null) return;
-		setPrevious(JSON.parse(item) as Feedback);
-	}, [path]);
+		if (item === null) return
+		setPrevious(JSON.parse(item) as Feedback)
+	}, [path])
 
 	useEffect(() => {
-		const key = `docs-feedback-${path}`;
+		const key = `docs-feedback-${path}`
 
-		if (previous) localStorage.setItem(key, JSON.stringify(previous));
-		else localStorage.removeItem(key);
-	}, [previous, path]);
+		if (previous) localStorage.setItem(key, JSON.stringify(previous))
+		else localStorage.removeItem(key)
+	}, [previous, path])
 
 	async function submit(e?: SyntheticEvent) {
-		if (opinion == null) return;
+		if (opinion == null) return
 
-		setError(null);
+		setError(null)
 		startTransition(async () => {
 			try {
 				const feedback: Feedback = {
 					path,
 					opinion,
 					message,
-				};
+				}
 
-				await onRateAction(feedback);
-				setPrevious(feedback);
-				setMessage("");
-				setOpinion(null);
+				await onRateAction(feedback)
+				setPrevious(feedback)
+				setMessage("")
+				setOpinion(null)
 			} catch (err) {
 				setError(
 					`Failed to submit feedback: ${err instanceof Error ? err.message : "Unknown error"}`,
-				);
-				console.error(err);
+				)
+				console.error(err)
 			}
-		});
+		})
 
-		e?.preventDefault();
+		e?.preventDefault()
 	}
 
-	const activeOpinion = previous?.opinion ?? opinion;
+	const activeOpinion = previous?.opinion ?? opinion
 
 	return (
 		<Collapsible
 			open={opinion !== null || previous !== null}
 			onOpenChange={(v) => {
-				if (!v) setOpinion(null);
+				if (!v) setOpinion(null)
 			}}
 			id="feedback"
 			className="border-y py-3"
@@ -106,7 +106,7 @@ export function Feedback({
 						}),
 					)}
 					onClick={() => {
-						setOpinion("good");
+						setOpinion("good")
 					}}
 				>
 					<ThumbsUp />
@@ -121,7 +121,7 @@ export function Feedback({
 						}),
 					)}
 					onClick={() => {
-						setOpinion("bad");
+						setOpinion("bad")
 					}}
 				>
 					<ThumbsDown />
@@ -143,8 +143,8 @@ export function Feedback({
 									"text-xs",
 								)}
 								onClick={() => {
-									setOpinion(previous.opinion);
-									setPrevious(null);
+									setOpinion(previous.opinion)
+									setPrevious(null)
 								}}
 							>
 								Submit Again
@@ -164,7 +164,7 @@ export function Feedback({
 							placeholder="Leave your feedback..."
 							onKeyDown={(e) => {
 								if (!e.shiftKey && e.key === "Enter") {
-									submit(e);
+									submit(e)
 								}
 							}}
 							maxLength={1000}
@@ -180,5 +180,5 @@ export function Feedback({
 				)}
 			</CollapsibleContent>
 		</Collapsible>
-	);
+	)
 }

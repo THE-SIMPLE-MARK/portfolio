@@ -1,15 +1,15 @@
-import path from "node:path";
-import tailwindcss from "@tailwindcss/vite";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import react from "@vitejs/plugin-react";
-import mdx from "fumadocs-mdx/vite";
-import { nitro } from "nitro/vite";
-import { glob } from "tinyglobby";
-import { defineConfig } from "vite";
-import tsConfigPaths from "vite-tsconfig-paths";
+import path from "node:path"
+import tailwindcss from "@tailwindcss/vite"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite"
+import react from "@vitejs/plugin-react"
+import mdx from "fumadocs-mdx/vite"
+import { nitro } from "nitro/vite"
+import { glob } from "tinyglobby"
+import { defineConfig } from "vite"
+import tsConfigPaths from "vite-tsconfig-paths"
 
-const blogPaths = await getContentPaths();
-const blogPathsWithIndex = await getContentPaths(true);
+const blogPaths = await getContentPaths()
+const blogPathsWithIndex = await getContentPaths(true)
 
 export default defineConfig({
 	server: {
@@ -52,7 +52,7 @@ export default defineConfig({
 		}),
 		nitro(),
 	],
-});
+})
 
 /**
  * Get the paths of the content file (md,mdx) without using the generated ~/.source stuff.
@@ -60,17 +60,17 @@ export default defineConfig({
  * @returns the URL paths of the docs files
  */
 export async function getContentPaths(keepIndex: boolean = false) {
-	const files = await glob("content/blog/**/*.{md,mdx}");
+	const files = await glob("content/blog/**/*.{md,mdx}")
 
 	return files.map((file) => {
-		const relativePath = path.relative("content/blog", file);
+		const relativePath = path.relative("content/blog", file)
 		const slugs = relativePath
 			.replace(/\.(md|mdx)$/, "")
 			.split(path.sep)
 			.filter(Boolean)
-			.filter((slug) => (keepIndex ? true : slug !== "index"));
+			.filter((slug) => (keepIndex ? true : slug !== "index"))
 
-		if (slugs.length === 0) return "/blog";
-		return `/blog/${slugs.join("/")}`;
-	});
+		if (slugs.length === 0) return "/blog"
+		return `/blog/${slugs.join("/")}`
+	})
 }

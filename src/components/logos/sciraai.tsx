@@ -56,5 +56,5 @@ export function SciraAILogo() {
 				strokeLinejoin="round"
 			/>
 		</svg>
-	);
+	)
 }

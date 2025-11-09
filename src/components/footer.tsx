@@ -1,4 +1,4 @@
-import { ThemeToggle } from "fumadocs-ui/components/layout/theme-toggle";
+import { ThemeToggle } from "fumadocs-ui/components/layout/theme-toggle"
 
 export function Footer() {
 	return (
@@ -13,5 +13,5 @@ export function Footer() {
 				mode="light-dark-system"
 			/>
 		</footer>
-	);
+	)
 }

@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
-import { MainLayout } from "./mainLayout";
+import { Link } from "@tanstack/react-router"
+import { MainLayout } from "./mainLayout"
 
 export function NotFound() {
 	return (
@@ -21,5 +21,5 @@ export function NotFound() {
 				</Link>
 			</div>
 		</MainLayout>
-	);
+	)
 }
