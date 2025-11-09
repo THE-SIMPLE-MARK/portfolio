@@ -60,7 +60,8 @@ export const Route = createFileRoute("/blog/$")({
 
 		return {
 			...data,
-			mdPath: `${slugs.length > 0 && slugs[0] !== "" ? slugs.join("/") : "index"}.md`,
+			markdownPath:
+				slugs.length > 0 && slugs[0] !== "" ? slugs.join("/") : "index",
 		};
 	},
 });
@@ -154,10 +155,10 @@ const clientLoader = createClientLoader(blog.doc, {
 					id="page-actions"
 					className="flex flex-row gap-2 items-center border-b pb-6"
 				>
-					<LLMCopyButton markdownUrl={`/blog/${data.mdPath}`} />
+					<LLMCopyButton markdownUrl={`/blog/${data.markdownPath}.md`} />
 					<ViewOptions
-						markdownUrl={`/blog/${data.mdPath}`}
-						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/blog/${data.mdPath}`}
+						markdownUrl={`/blog/${data.markdownPath}.md`}
+						githubUrl={`https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/blog/${data.markdownPath}.mdx`}
 					/>
 				</div>
 
