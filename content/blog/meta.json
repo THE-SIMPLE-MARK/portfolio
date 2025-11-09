@@ -3,5 +3,12 @@
 	"description": "Everything software development.",
 	"icon": "Code",
 	"root": true,
-	"pages": ["---Introduction---", "index", "philosophy"]
+	"pages": [
+		"---Introduction---",
+		"index",
+		"philosophy",
+		"---Apple dev---",
+		"apple-dev/aw-connectivity-fix",
+		"apple-dev/aw-symbols-syncing-fix"
+	]
 }

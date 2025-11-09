@@ -1,0 +1,45 @@
+---
+title: Fixing Apple Watch XCode pairing
+description: This guide details how to consistently be able to pair your Apple Watch to your Mac via XCode.
+---
+
+## Motivation
+
+As you probably have fiuged out by now, pairing your Apple Watch to XCode is pretty finicky. The content in this guide is heavily inspired by [different arcticles, Reddit & other forum posts](#sources). Basically compiling all the information I could find into one place.
+
+Thankfully, once paired, connecting is not a problem (most of the time). Though I do sometimes have to re-pair it, because it simply refuses to connect, or gets stuck on "Preparing [device name]...".
+
+## The solution
+
+There isn't one golden route to successfully pairing, there are a couple of things which are needed for sure though:
+
+### Prerequisites
+
+- Your Apple Watch and iPhone need to have Developer mode enabled.
+- Your Apple Watch needs to be paired to your iPhone.
+- Your Apple Watch, iPhone & Mac need to be on the same network.
+	- Some sources indicate that you even need to be on the same VLAN, and potentially use the same wifi band (5GHz vs 2.4GHz). You can rule this out by temporarily disabling either band on your router.
+- Your iPhone needs to be paired to XCode before attempting to pair to your Apple Watch.
+- You need to force a connection between your iPhone & Apple Watch for it to show up in XCode.
+	- **Option 1**: Go to `Watch app (iPhone) > General > Diagnostic logs`, then download some random log.
+	- **Option 2**: Play a sound via Find My from your iPhone to your Apple Watch.
+
+### Steps
+
+Additionally, I found that doing these repeatedly, in this order (sometimes also not in this order) also sometimes helps:
+
+0. Make sure you've done everything in the [prerequisites section](#prerequisites).
+1. Clear trusted computers on your Apple Watch. (`Settings > Developer > Clear trusted computers`)
+	- This should result in your Apple Watch prompting you to trust your computer again after like 1-10 seconds if XCode is open. **This is what you're ultimately looking for as a validator that you're close. If you clear and you don't get re-prompted, you'll never be able to pair.**
+2. Unplug iPhone from Mac, clear trusted computers (`Settings > Developer > Clear trusted computers`), then re-plug it in.
+	- This should result in your iPhone prompting you to trust your computer again if XCode is open. **Apple Watch pairing won't work if your iPhone is not paired to XCode.**
+
+## Sources
+
+Here are the ones I could find:
+
+- https://www.fplanque.com/tech/dev/apple-watch-xcode-connection/
+- https://www.reddit.com/r/iOSProgramming/comments/1bmqnpg/apple_watch_app_development_xcode_connection_error/
+- https://www.reddit.com/r/AppleWatch/comments/1na5u35/i_think_i_found_a_reliable_way_to_sync_apple/
+
+I'll expand on this when I encounter this issue again and dive into the problem.

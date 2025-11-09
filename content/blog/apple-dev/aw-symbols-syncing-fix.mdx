@@ -1,0 +1,44 @@
+---
+title: Fixing Apple Watch XCode symbols syncing speed
+description: This is a quick overview of how to significantly speed up the XCode symbols copying speed for your Apple Watch.
+---
+import { CheckIcon, XIcon, CircleSlash2Icon } from "lucide-react";
+
+## Motivation
+
+As you probably know, Apple Watch development is a pain in the ass. One of the biggest pains is the procedure in which XCode copies debug symbols from your Apple Watch to your Mac.
+
+This normally is so you can have proper crash logs and debugging sessions with tracebacks. However, Apple also made it so you can't build whatsoever without waiting out the copying.
+
+Due to not being able to hook up Apple Watches series 7, and newer to your Mac via a cable, due to the lack of the JTAG debug port (and due to the lack of commercial availability of [the wireless radio dock they've replaced the debug port for series 7+](https://www.macrumors.com/2021/10/15/apple-watch-series-7-internal-dock-images/)), you're forced to rely on WiFi / Bluetooth.
+
+<Callout title="Title" type="warning">
+	I jogged what I did down to a sticky note the last time I had to do this. Said notes are what you'll find below. I tried manually triggering a shared symbol copy to verify, however I don't think that's possible, so this warning will stay here until the next time I have to copy these goddam symbols, so I can double-check this actually works.
+
+	If this solved the slowness for you: please send feedback via the form at the bottom of the page so I can take this off. Thanks!
+</Callout>
+
+
+## The solution
+
+Once you've paired your Apple Watch & iPhone to XCode on your Mac, do these:
+0. Pair your Apple Watch to XCode. (see [this guide](/blog/apple-dev/aw-connectivity-fix) if you're struggling)
+1. Plug in your iPhone to your Mac via USB. (trust computer on iPhone if haven't already)
+2. Wait for XCode to sync symbols from your iPhone. (if needed)
+	- (you can check the status at `XCode >Window > Devices and Simulators`)
+3. Wait for XCode to start syncing symbols from your Apple Watch.
+	- (you can check the status at `XCode >Window > Devices and Simulators`)
+
+The reason we're waiting for it to start is because the following state won't allow your Apple Watch to negotiate the initial connection with XCode.
+
+So, once it has started (0% progress is fine), set your device up like this:
+
+| Connection       | Mac       	| iPhone 												| Apple Watch	|
+|------------------|------------|-------------------------------|-------------|
+|	Wired connection |	to iPhone	|	to Mac												| N/A					|
+|	WiFi             |	on				| off (fully, in settings too)	| off					|
+|	Bluetooth        |	off				| on     												|	on					|
+
+## Result
+
+This resulted in a 10 minute transfer for me. Maybe not even that much.
