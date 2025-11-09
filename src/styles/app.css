@@ -27,7 +27,7 @@
 	}
 
 	#nd-docs-layout {
-		img[alt=drawing] {
+		img[alt=erd] {
 			@apply mx-auto;
 			height: 500px;
 		}

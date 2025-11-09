@@ -23,7 +23,7 @@ This is kind of a "hand-holding" type of guide. I'll assume:
 
 Full disclosure: I'll be using the database structure of a simple URL shortener app I hacked together for my personal use in this guide. Here's its ERD:
 
-![Entity Relationship Diagram showing User and Url tables with one-to-many relationship](/blog/neon-to-planetscale-migration/erd.svg)
+![erd](/blog/neon-to-planetscale-migration/erd.svg)
 
 This database has been seeded with 45 000 users with 60 shortened URLs each, totaling to around 2 745 000 records (plus a couple more manually added to test the availability during migration) across the 2 tables. All of this comes out to ~512 MBs. This essentially replicates a small SaaS business' database.
 
