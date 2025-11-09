@@ -12,7 +12,8 @@
 }
 
 .dark {
-	--color-fd-primary: #00d9ff;
+	--color-fd-primary: #0087be;
+	--color-fd-primary-foreground: var(--color-fd-primary-foreground);
 }
 
 @layer base {
