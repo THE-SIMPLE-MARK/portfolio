@@ -70,6 +70,7 @@ const loader = createServerFn({
 		return {
 			tree: source.pageTree as object,
 			path: page.path,
+			lastModified: page.data.lastModified,
 		};
 	});
 
@@ -83,6 +84,7 @@ const clientLoader = createClientLoader(docs.doc, {
 				toc={toc}
 				tableOfContent={{ style: "clerk" }}
 				footer={{ enabled: false }}
+				lastUpdate={data.lastModified ? new Date(data.lastModified) : undefined}
 			>
 				<DocsTitle>{frontmatter.title}</DocsTitle>
 				<DocsDescription className="mb-0">
