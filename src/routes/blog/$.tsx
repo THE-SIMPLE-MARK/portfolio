@@ -11,7 +11,7 @@ import {
 	DocsTitle,
 } from "fumadocs-ui/page";
 import { useMemo } from "react";
-import { docs } from "~/.source";
+import { blog } from "~/.source";
 import { LLMCopyButton, ViewOptions } from "~/components/page-actions";
 import { getLLMText } from "~/lib/getLLMText";
 import { getMDXComponents } from "~/lib/mdx-components";
@@ -74,7 +74,7 @@ const loader = createServerFn({
 		};
 	});
 
-const clientLoader = createClientLoader(docs.doc, {
+const clientLoader = createClientLoader(blog.doc, {
 	id: "blog",
 	component({ toc, frontmatter, default: MDX }) {
 		const data = Route.useLoaderData();

@@ -8,8 +8,8 @@ import { glob } from "tinyglobby";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
-const docsPaths = await getContentPaths();
-const docsPathsWithIndex = await getContentPaths(true);
+const blogPaths = await getContentPaths();
+const blogPathsWithIndex = await getContentPaths(true);
 
 export default defineConfig({
 	server: {
@@ -27,11 +27,11 @@ export default defineConfig({
 					path: "/llms.txt",
 					prerender: { enabled: true },
 				},
-				...docsPaths.map((path) => ({
+				...blogPaths.map((path) => ({
 					path,
 					prerender: { enabled: true },
 				})),
-				...docsPathsWithIndex.map((path) => ({
+				...blogPathsWithIndex.map((path) => ({
 					path: `${path}.md`,
 					prerender: { enabled: true },
 				})),
