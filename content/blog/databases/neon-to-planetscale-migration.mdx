@@ -180,7 +180,9 @@ This'll restart your db instances, meaning it'll drop all connections, so bear t
 
 ### Getting database credentials
 
-Hitting "Connect" in the top-right corner of your project's home page should give you the credentials for your database. Using the `neondb_owner` role is fine here. (You can make a separate `migration`
+Hitting "Connect" in the top-right corner of your project's home page should give you the credentials for your database. Using the `neondb_owner` role is fine here. (You can make a separate `migration` role if you want, though.)
+
+Make sure to disable "Connection pooling", as this bypasses `PgBouncer`, which is recommended for using things like `pg_dump`, also, leaving it on could potentially interfere with the PlanetScale subscription's operations.
 
 Select "Parameters only" in the dropdown above the credentials so you get them neatly organized. You also want to click the show password button so you can copy them right from here.
 
