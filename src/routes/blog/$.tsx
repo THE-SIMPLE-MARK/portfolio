@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
+import { getGithubLastEdit } from "fumadocs-core/content/github";
 import type * as PageTree from "fumadocs-core/page-tree";
 import { createClientLoader } from "fumadocs-mdx/runtime/vite";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
@@ -67,10 +68,16 @@ const loader = createServerFn({
 		const page = source.getPage(slugs);
 		if (!page) throw notFound();
 
+		const lastModified = await getGithubLastEdit({
+			owner: "THE-SIMPLE-MARK",
+			repo: "portfolio",
+			path: `content/blog/${page.path}`,
+		});
+
 		return {
 			tree: source.pageTree as object,
 			path: page.path,
-			lastModified: page.data.lastModified,
+			lastModified,
 		};
 	});
 
@@ -83,7 +90,6 @@ const clientLoader = createClientLoader(blog.doc, {
 			<DocsPage
 				toc={toc}
 				tableOfContent={{ style: "clerk" }}
-				footer={{ enabled: false }}
 				lastUpdate={data.lastModified ? new Date(data.lastModified) : undefined}
 			>
 				<DocsTitle>{frontmatter.title}</DocsTitle>
