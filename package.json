@@ -15,6 +15,7 @@
 	"dependencies": {
 		"@fontsource-variable/atkinson-hyperlegible-next": "^5.2.6",
 		"@fontsource/gloria-hallelujah": "^5.2.8",
+		"@icons-pack/react-simple-icons": "^13.8.0",
 		"@tanstack/react-router": "^1.134.15",
 		"@tanstack/react-router-devtools": "^1.134.15",
 		"@tanstack/react-start": "^1.134.15",
@@ -34,7 +35,6 @@
 		"nitro": "3.0.1-alpha.0",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
-		"react-icons": "^5.5.0",
 		"tailwind-merge": "^3.3.1",
 		"vite": "^7.2.2",
 		"zod": "^4.1.12"
