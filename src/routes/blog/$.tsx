@@ -14,7 +14,7 @@ import { useMemo } from "react";
 import { blog } from "~/.source";
 import { LLMCopyButton, ViewOptions } from "~/components/page-actions";
 import { getLLMText } from "~/lib/getLLMText";
-import { getMDXComponents } from "~/lib/mdx-components";
+import { getMDXComponents } from "~/lib/mdxComponents";
 import { source } from "~/lib/source";
 
 export const Route = createFileRoute("/blog/$")({
