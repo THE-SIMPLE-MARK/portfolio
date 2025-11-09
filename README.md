@@ -1,14 +1,16 @@
-# portfolio
+# Márk's portfolio
 
-This is a Tanstack Start application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+Home sweet home.
 
-Run development server:
+## Development
 
 ```bash
 npm run dev
-# or
-pnpm dev
-# or
-yarn dev
+```
+
+## Production
+
+```bash
+npm run build
+npm run start
 ```
