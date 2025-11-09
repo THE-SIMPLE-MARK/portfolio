@@ -77,6 +77,7 @@ const loader = createServerFn({
 			owner: "THE-SIMPLE-MARK",
 			repo: "portfolio",
 			path: `content/blog/${page.path}`,
+			token: process.env.GITHUB_TOKEN,
 		});
 
 		return {
