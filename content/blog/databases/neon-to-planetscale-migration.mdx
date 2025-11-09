@@ -197,7 +197,7 @@ PLANETSCALE_DBNAME=postgres # leave as-is
 NEON_USERNAME=neondb_owner
 NEON_PASSWORD=npg_XXXX
 NEON_HOST=XXX.XXXXXX.aws.neon.tech
-NEON_DBNAME=XXX
+NEON_DBNAME=neondb
 ```
 
 </Step>
@@ -262,7 +262,7 @@ Run the following SQL statement to create a publication on Neon:
 CREATE PUBLICATION replicate_to_planetscale FOR ALL TABLES;
 ```
 
-This should output something like `CREATE PUBLICATION` if ran correctly.
+This should output something like `CREATE PUBLICATION{:sql}` if ran correctly.
 
 Now we need to tell PlanetScale to connect and subscribe to the publication.
 
