@@ -57,10 +57,10 @@ export default defineConfig({
  * @returns the URL paths of the docs files
  */
 export async function getContentPaths(keepIndex: boolean = false) {
-	const files = await glob("content/docs/**/*.{md,mdx}");
+	const files = await glob("content/blog/**/*.{md,mdx}");
 
 	return files.map((file) => {
-		const relativePath = path.relative("content/docs", file);
+		const relativePath = path.relative("content/blog", file);
 		const slugs = relativePath
 			.replace(/\.(md|mdx)$/, "")
 			.split(path.sep)
