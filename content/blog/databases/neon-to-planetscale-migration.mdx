@@ -12,12 +12,12 @@ With the [recent announcement](https://planetscale.com/blog/planetscale-for-post
 
 This is kind of a "hand-holding" type of guide. I'll assume:
 
-- you've never used PlanetScale and have never migrated a database
-- you want to migrate every table from your old database
-- you've never used Postgres CLI commands
+- You've never used PlanetScale and have never migrated a database
+- You want to migrate every table from your old database
+- You've never used Postgres CLI commands
 - BUT you've downloaded the Postgres CLI tools in some way
 - you're using an OS with a UNIX-like terminal
-- you understand how shell environment variables work
+- You understand how shell environment variables work
 
 # The workload
 
@@ -25,16 +25,14 @@ Full disclosure: I'll be using the database structure of a simple URL shortener 
 
 ![erd](/blog/neon-to-planetscale-migration/erd.svg)
 
-This database has been seeded with 45 000 users with 60 shortened URLs each, totaling to around 2 745 000 records (plus a couple more manually added to test the availability during migration) across the 2 tables. All of this comes out to ~512 MBs. This essentially replicates a small SaaS business' database.
+This database has been seeded with 45,000 users with 60 shortened URLs each, totaling around 2,745,000 records (plus a couple more manually added to test the availability during migration) across the 2 tables. All of this comes out to ~512 MBs. This essentially replicates a small SaaS business's database.
 
 ## Credibility
 
-## Credibility
-
-This guide walks through migrating a 2.7M record database with foreign keys, auto-incrementing IDs, and unique constraints—the parts that usually break during migrations. The same SQL and methods scale regardless of whether you have 2 tables or 200.
+This guide walks through migrating a 2.7M record database with foreign keys, auto-incrementing IDs, and unique constraints. These parts tend to be the most problematic during migrations. The same SQL and methods scale regardless of whether you have 2 tables or 200.
 	
 For production examples: [OpenSecret](https://opensecret.cloud/) used [PlanetScale's migration scripts](https://github.com/planetscale/migration-scripts) based on [their migration guide](https://planetscale.com/blog/postgres/imports/neon#3-prepare-the-neon-database) for their migration. You can read their [blog post](https://blog.opensecret.cloud/why-we-migrated-from-neon-to-planetscale/) about it. This guide follows the same documentation, with the scripts available as automation options.
-	
+
 You can find many more [case studies done by PlanetScale](https://planetscale.com/case-studies), including how those companies migrated.
 
 # The migration
@@ -43,7 +41,7 @@ I tried to summarize what needs to be done on each step (lifting from the docume
 
 We do not manually transfer data; we use Postgres' logical replication feature available in versions 10 and above. So if choosing Postgres hasn't paid off yet, it surely will now!
 
-*But for real: In my opinion, a migration this way takes very little effort; it's literally the most straightforward thing ever. You can easily do it with no previous migration experience. Getting the 2 DBs setup and getting the database credentials took more effort than the migration itself!*
+*But for real: In my opinion, a migration this way takes very little effort; it's literally the most straightforward thing ever. You can easily do it with no previous migration experience. Getting the 2 DBs set up and getting the database credentials took more effort than the migration itself!*
 
 ### But how fast?
 
@@ -53,10 +51,10 @@ The replication is the longest process here. The example workload above migrated
 <Step>
 ## Pre-flight checklist
 
-Prior to the migration, please make sure that:
+Before the migration, please make sure that:
 
-- [ ] The `psql` CLI's version (the one installed on your machine) is above the PostgreSQL version of the database you're migrating. It is good practice to always download the latest version, the CLI is backwards compatible (check with `psql --version`)
-- [ ] Your Postgres database version is 10, or above (logical replication required)
+- [ ] The `psql` CLI's version (the one installed on your machine) is above the PostgreSQL version of the database you're migrating. It is good practice to always download the latest version. The CLI is backwards compatible (check with `psql --version`)
+- [ ] Your Postgres database version is 10 or above (logical replication required)
 - [ ] All of your Postgres extensions you depend on are supported by PlanetScale (check their [extensions documentation](https://planetscale.com/blog/postgres/extensions)). Make sure to enable these before starting the migration to be extra safe!
 - [ ] You have the necessary permissions for the 2 databases to perform the steps:
   - [ ] **PlanetScale**: dashboard access with `Database Administrator` or `Organization Administrator` role to create the new database, change its settings, and connect to it
@@ -71,7 +69,7 @@ Now buckle up a little! This'll get a little involved. I'll explain everything f
 
 ### Choosing database config
 
-Log into the [PlanetScale dashboard](https://app.planetscale.com/) and click "Create a new database".
+Log in to the [PlanetScale dashboard](https://app.planetscale.com/) and click "Create a new database".
 
 However, before you hurry onto the next steps, here are some things to consider:
 
@@ -84,9 +82,9 @@ However, before you hurry onto the next steps, here are some things to consider:
 <Callout title="If you choose PlanetScale Metal…." type="warning">
 	You must choose a disk size when first creating your database. You should launch your cluster with a disk size at least 50% larger than the storage used by your current source database.
 
-	Example: if you need to import a 330 GB database onto a PlanetScale **`M-160`** there are three storage sizes available: 118 GB, 468 GB, 1.25GB. You should use the 1.25TB option during the migration.
+	Example: if you need to import a 330 GB database onto a PlanetScale **`M-160`**, there are three storage sizes available: 118 GB, 468 GB, and 1.25GB. You should use the 1.25TB option during the migration.
 
-	Tip: not all sizes are available on both architectures; the storage size value in the cluster type cards are dropdowns!
+	Tip: not all sizes are available on both architectures; the storage size values in the cluster type cards are dropdowns!
 
 	After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option (as per the example). **Don't worry! Resizing is a no-downtime operation that can be performed on the [cluster configuration](https://planetscale.com/blog/postgres/cluster-configuration) page.**
 </Callout>
@@ -97,11 +95,11 @@ Once you're ready, go ahead and create your database and watch PlanetScale do it
 
 ### Getting database credentials
 
-Now on the dashboard of your new database, click "Connect" in the top-right.
+Now, on the dashboard of your new database, click "Connect" in the top-right.
 
 ![PlanetScale dashboard showing the Connect button in the top-right corner](/blog/neon-to-planetscale-migration/planetscale-connect-button.png)
 
-This will launch the role creation wizard. We'll now create our role, which we'll use for our migration. It is considered best practice to not use one role with high-level permissions for everything.
+This will launch the role creation wizard. We'll now create our role, which we'll use for our migration. It is considered best practice not to use one role with high-level permissions for everything.
 
 `pg_read_all_data` and `pg_write_all_data` should be ticked by default. You'll need to enable `pg_create_subscription` and `postgres` in addition to those.
 
@@ -124,7 +122,7 @@ PLANETSCALE_DBNAME=postgres # leave as-is
 	**Skip this step if you're importing into PlanetScale Metal.**
 </Callout>
 
-If you selected a network attached storage type as your storage option at the start, you'll still have to configure the "Minimum disk size" option, as even though it auto-scales, PlanetScale's cloud providers (AWS & GCP) have limitations on how frequently the storage can be resized.
+If you selected a network-attached storage type as your storage option at the start, you'll still have to configure the "Minimum disk size" option, as even though it auto-scales, PlanetScale's cloud providers (AWS & GCP) have limitations on how frequently the storage can be resized.
 
 If you don't ensure your disk is large enough for the import in advance, it will not be able to resize fast enough for a large data import.
 
@@ -140,19 +138,19 @@ Set this value to 150% of the size of the database you're going to migrate.
 
 I left this value at 10 GB, since I'm only migrating 512 MBs.
 
-Make sure to queue these changes so we can apply it after the next step!
+Make sure to queue these changes so we can apply them after the next step!
 
 ![PlanetScale changes queue showing pending storage configuration changes ready to be applied](/blog/neon-to-planetscale-migration/planetscale-queue-changes.png)
 
 ### Recommended settings for migration
 
-We'll now change some settings which should make the migration faster, and even more reliable.
+We'll now change some settings, which should make the migration faster and even more reliable.
 
 To configure this, switch to the "Parameters" tab on the same page.
 
 ![PlanetScale cluster configuration page showing the Parameters tab](/blog/neon-to-planetscale-migration/planetscale-parameters-tab.png)
 
-Find the `max_worker_processes` parameter and increase it from `4` to `10`. You can go higher, if you'd like, you shouldn't really have to go above `20` though.
+Find the `max_worker_processes` parameter and increase it from `4` to `10`. You can go higher, if you'd like, but you shouldn't really have to go above `20` though.
 
 I increased it to `10` since my migration is rather small, and that's what the docs recommend as well.
 
@@ -161,7 +159,7 @@ I increased it to `10` since my migration is rather small, and that's what the d
 Once ready, queue these changes too. Then head to the "Changes" tab, where you'll find your
 … 🥁 drumroll please 🥁 … your changes!
 
-Go ahead and apply your changes by hitting the "Apply changes" button in the dropdown and confirming in the popup.
+Go ahead and apply your changes by hitting the "Apply changes" button in the dropdown and confirming in the pop-up.
 
 ![PlanetScale Changes tab showing pending configuration changes with Apply changes dropdown button](/blog/neon-to-planetscale-migration/planetscale-apply-changes.png)
 
@@ -176,7 +174,7 @@ The configuration on the Neon side was thankfully much easier, literally just tu
 
 Go to your Neon project's "Settings" page, then find the "Logical Replication" section, then hit "Enable".
 
-This'll restart your db instances, meaning it'll drop all connections, so bear that in mind. Otherwise this should be basically instantaneous.
+This'll restart your DB instances, meaning it'll drop all connections, so bear that in mind. Otherwise, this should be basically instantaneous.
 
 ![Neon project Settings page showing Logical Replication section with Enable button](/blog/neon-to-planetscale-migration/neon-enable-logical-replication.png)
 
@@ -184,13 +182,13 @@ This'll restart your db instances, meaning it'll drop all connections, so bear t
 
 Hitting "Connect" in the top-right corner of your project's home page should give you the credentials for your database. Using the `neondb_owner` role is fine here. (You can make a separate `migration` role if you want, though.)
 
-Make sure to disable "Connection pooling", as this bypasses `PgBouncer`, which is recommended for using things like `pg_dump`, also, leaving it on could potentially interfere with the PlanetScale subscription's operations.
+Make sure to disable "Connection pooling", as this bypasses `PgBouncer`, which is recommended for using things like `pg_dump`; also, leaving it on could potentially interfere with the PlanetScale subscription's operations.
 
 Select "Parameters only" in the dropdown above the credentials so you get them neatly organized. You also want to click the show password button so you can copy them right from here.
 
 ![Neon connection credentials screen showing Parameters only format with username, password, host, and database name](/blog/neon-to-planetscale-migration/neon-connection-credentials.png)
 
-Copy these credentials into this format and save it into the same env file:
+Copy these credentials into this format and save them in the same env file:
 
 ```dotenv
 PLANETSCALE_DBNAME=postgres # leave as-is
@@ -290,7 +288,7 @@ NOTICE: created replication slot "replicate_from_neon" on publisher
 CREATE SUBSCRIPTION
 ```
 
-Congrats! Your PlanetScale database is now catching up with your Neon database. As I wrote above, this is near instant for small databases. But even if it's not, we can work on migrating sequences while it's copying / replicating.
+Congrats! Your PlanetScale database is now catching up with your Neon database. As I wrote above, this is near instant for small databases. But even if it's not, we can work on migrating sequences while it's copying/replicating.
 
 </Step>
 
@@ -332,10 +330,10 @@ In my case, this returns the following:
 You can see that I got sequences for the 2 ID fields in my 2 tables, which is expected since both are defined as `SERIAL`.
 
 <Callout title="Skip condition" type="error">
-	If you get an empty table, you can safely skip this section (to [Moving reads & writes to PlanetScale](#moving-reads--writes-to-planetscale)) since you do not have anything which uses sequences.
+	If you get an empty table, you can safely skip this section (to [Moving reads & writes to PlanetScale](#moving-reads--writes-to-planetscale)) since you do not have anything that uses sequences.
 </Callout>
 
-You might think copying the sequences is enough, however you'll most likely exceed the migrated sequences by the time you cut over. For this reason you have to increment the sequences by an amount you're sure you won't exceed before moving the reads and writes to PlanetScale.
+You might think copying the sequences is enough; however, you'll most likely exceed the migrated sequences by the time you cut over. For this reason, you have to increment the sequences by an amount you're sure you won't exceed before moving the reads and writes to PlanetScale.
 
 <Callout title="If you do not know how to measure, or don't want to guess this yourself" type="info">
 	It might be beneficial to use the [`ff-seq.sh` script](https://github.com/planetscale/migration-scripts/blob/main/postgres-direct/ff-seq.sh) provided by PlanetScale, which, when provided with your Neon database credentials (`--primary`), PlanetScale credentials (`--secondary`), and a `--skip` property in seconds, will sample your database and fast-forward the sequences on your PlanetScale database enough to only catch up by the amount of seconds provided.
@@ -356,7 +354,7 @@ FROM pg_sequences;
 ```
 <Callout title="PlanetScale docs inaccuracy" type="warning">
 	As of writing, the PlanetScale docs use incorrect quoting that treats the whole `public.sequencename` as a single identifier, causing Postgres to interpret it as a column reference instead of a sequence name.
-	
+
 	The corrected version above properly quotes only the sequence name and uses `::regclass` to resolve it correctly.
 
 	If you're interested, this is what running the generated statements outputted by the bad generator looks like:
@@ -524,17 +522,17 @@ You should see all of these values match up. As simple as that! If you don't, do
 
 You are now ready to move over!
 
-You should now change the database credentials in your app to PlanetScale's. Create a new role on PlanetScale with the necessary permission required for your app to operate, and use said permissions in the next deployment of your app.
+You should now change the database credentials in your app to PlanetScale's. Create a new role on PlanetScale with the necessary permissions required for your app to operate, and use said permissions in the next deployment of your app.
 
 ### The retirement
 
-It's probably not the best idea to shut down the Neon database yet. We need to make sure that no other connections except PlanetScale's subscription exist so you know that no one is connected to the old deployment of your app at this point.
+It's probably not the best idea to shut down the Neon database yet. We need to make sure that no other connections except PlanetScale's subscription exist, so you know that no one is connected to the old deployment of your app at this point.
 
 Go to your Neon project, then "Monitoring" in the sidebar, then find the "Connections count" graph. Check the "Total" value, and **verify it's 1**.
 
 ![Neon Monitoring page showing Connections count graph with Total value of 1 indicating only PlanetScale subscription is connected](/blog/neon-to-planetscale-migration/neon-connections-monitoring.png)
 
-Once you've verified that the other connections have been closed (excl. PlanetScale), you can leave Neon alone, since it auto scales to zero.
+Once you've verified that the other connections have been closed (excl. PlanetScale), you can leave Neon alone, since it auto-scales to zero.
 
 <Callout title="Tip" type="info">
 	The PlanetScale docs recommend you keep the old data (including the db) for a couple of days at the very least in case anything went wrong. This shouldn't be a problem since you won't incur any costs due to Neon's "scale to zero" feature. 
