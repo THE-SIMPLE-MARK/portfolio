@@ -55,7 +55,7 @@ Before the migration, please make sure that:
 
 - [ ] The `psql` CLI's version (the one installed on your machine) is above the PostgreSQL version of the database you're migrating. It is good practice to always download the latest version. The CLI is backwards compatible (check with `psql --version`)
 - [ ] Your Postgres database version is 10 or above (logical replication required)
-- [ ] All of your Postgres extensions you depend on are supported by PlanetScale (check their [extensions documentation](https://planetscale.com/blog/postgres/extensions)). Make sure to enable these before starting the migration to be extra safe!
+- [ ] All of your Postgres extensions you depend on are supported by PlanetScale (check their [extensions documentation](https://planetscale.com/docs/postgres/extensions)). Make sure to enable these before starting the migration to be extra safe!
 - [ ] You have the necessary permissions for the 2 databases to perform the steps:
   - [ ] **PlanetScale**: dashboard access with `Database Administrator` or `Organization Administrator` role to create the new database, change its settings, and connect to it
   - [ ] **Neon**: dashboard access with `Collaborator` role or above to change its settings, and connect to it
