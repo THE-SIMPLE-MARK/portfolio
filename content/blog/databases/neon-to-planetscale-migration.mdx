@@ -355,7 +355,7 @@ FROM pg_sequences;
 <Callout title="PlanetScale docs inaccuracy" type="warning">
 	As of writing, the PlanetScale docs use incorrect quoting that treats the whole `public.sequencename` as a single identifier, causing Postgres to interpret it as a column reference instead of a sequence name.
 
-	The corrected version above properly quotes only the sequence name and uses `::regclass` to resolve it correctly.
+	The corrected version above properly quotes only the sequence name and uses `::regclass` to resolve it correctly. (though the latter is not technically required)
 
 	If you're interested, this is what running the generated statements outputted by the bad generator looks like:
 	```sql
@@ -368,10 +368,10 @@ FROM pg_sequences;
 This will output something like:
 
 ```sql
-                  	query
-----------------------------------------------
- SELECT setval('public.User_id_seq', 55000);
- SELECT setval('public.Url_id_seq', 2710000);
+                          query
+----------------------------------------------------------
+ SELECT setval('public."User_id_seq"'::regclass, 55000);
+ SELECT setval('public."Url_id_seq"'::regclass, 2710000);
 (2 rows)
 ```
 
@@ -389,11 +389,11 @@ psql \
 Run the queries outputted by the generator statement from the Neon database:
 
 ```sql
-SELECT setval('public.User_id_seq', 55000);
+SELECT setval('public."User_id_seq"'::regclass, 55000);
 ```
 
 ```sql
-SELECT setval('public.Url_id_seq', 2710000);
+ SELECT setval('public."Url_id_seq"'::regclass, 2710000);
 ```
 
 These should result in:
