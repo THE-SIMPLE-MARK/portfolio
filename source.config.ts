@@ -1,4 +1,6 @@
 import { defineConfig, defineDocs } from "fumadocs-mdx/config"
+import rehypeKatex from "rehype-katex"
+import remarkMath from "remark-math"
 
 export const blog = defineDocs({
 	dir: "content/blog",
@@ -11,6 +13,8 @@ export const blog = defineDocs({
 
 export default defineConfig({
 	mdxOptions: {
+		remarkPlugins: [remarkMath],
+		rehypePlugins: (v) => [rehypeKatex, ...v],
 		rehypeCodeOptions: {
 			inline: "tailing-curly-colon",
 			themes: {

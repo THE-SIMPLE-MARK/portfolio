@@ -29,23 +29,25 @@ This database has been seeded with 45 000 users with 60 shortened URLs each, tot
 
 ## Credibility
 
-If you're planning on migrating a production workload, or any project which is more sophisticated than the above, you'd be right to question the credibility of this tutorial. However, the example workload we'll be using contains foreign keys (one-to-many relations), auto incrementing IDs, and unique fields. These are the main pain points of migrations. That means what we're doing on a small scale proves that the same thing works on a larger scale, the same SQL queries and methods will work no matter if you have 2 tables or 200.
+## Credibility
 
-If you want to see a real company doing this at scale: the [migration scripts PlanetScale made](https://github.com/planetscale/migration-scripts) based off of [their migration guide](https://planetscale.com/blog/postgres/imports/neon#3-prepare-the-neon-database) were used by [OpenSecret](https://opensecret.cloud/). You can read about their migration in their [blog post](https://blog.opensecret.cloud/why-we-migrated-from-neon-to-planetscale/).
-
-You can find many more [case studies done by PlanetScale](https://planetscale.com/case-studies), including how those companies migrated. Please do check them out!
+This guide walks through migrating a 2.7M record database with foreign keys, auto-incrementing IDs, and unique constraints—the parts that usually break during migrations. The same SQL and methods scale regardless of whether you have 2 tables or 200.
+	
+For production examples: [OpenSecret](https://opensecret.cloud/) used [PlanetScale's migration scripts](https://github.com/planetscale/migration-scripts) based on [their migration guide](https://planetscale.com/blog/postgres/imports/neon#3-prepare-the-neon-database) for their migration. You can read their [blog post](https://blog.opensecret.cloud/why-we-migrated-from-neon-to-planetscale/) about it. This guide follows the same documentation, with the scripts available as automation options.
+	
+You can find many more [case studies done by PlanetScale](https://planetscale.com/case-studies), including how those companies migrated.
 
 # The migration
 
 I tried to summarize what needs to be done on each step (lifting from the documentation), plus my personal experiences. So think of this blog as an extension to the docs written by PlanetScale, with my personal experiences included.
 
-Said smoothness is possible due to the fact that we do not manually transfer data, we use Postgres' logical replication feature available in versions 10 and above. So if choosing Postgres hasn't paid off yet, it surely will now!
+We do not manually transfer data; we use Postgres' logical replication feature available in versions 10 and above. So if choosing Postgres hasn't paid off yet, it surely will now!
 
-*But for real: In my opinion, a migration this way takes very little effort, it's literally the most straight forward thing ever. You can easily do it with no previous migration experience. Getting the 2 DBs setup and getting the database credentials took more effort than the migration itself!*
+*But for real: In my opinion, a migration this way takes very little effort; it's literally the most straightforward thing ever. You can easily do it with no previous migration experience. Getting the 2 DBs setup and getting the database credentials took more effort than the migration itself!*
 
 ### But how fast?
 
-The replication is the longest process here. The example workload above migrated in a matter of seconds.
+The replication is the longest process here. The example workload above migrated in around 3 minutes at worst.
 
 <Steps>
 <Step>
@@ -57,15 +59,15 @@ Prior to the migration, please make sure that:
 - [ ] Your Postgres database version is 10, or above (logical replication required)
 - [ ] All of your Postgres extensions you depend on are supported by PlanetScale (check their [extensions documentation](https://planetscale.com/blog/postgres/extensions)). Make sure to enable these before starting the migration to be extra safe!
 - [ ] You have the necessary permissions for the 2 databases to perform the steps:
-  - [ ] **PlanetScale**: dashboard access with `Database Administrator` or `Organization Administrator` role to create the new database, change it's settings, and connect to it
-  - [ ] **Neon**: dashboard access with `Collaborator` role or above to change it's settings, and connect to it
+  - [ ] **PlanetScale**: dashboard access with `Database Administrator` or `Organization Administrator` role to create the new database, change its settings, and connect to it
+  - [ ] **Neon**: dashboard access with `Collaborator` role or above to change its settings, and connect to it
 
 </Step>
 
 <Step>
 ## Preparing the PlanetScale database
 
-Now buckle up a little! This'll get a little involved. I'll explain everything from choosing the right cluster size and configuration to getting ready the instance for migration.
+Now buckle up a little! This'll get a little involved. I'll explain everything from choosing the right cluster size and configuration to preparing the instance for migration.
 
 ### Choosing database config
 
@@ -84,14 +86,14 @@ However, before you hurry onto the next steps, here are some things to consider:
 
 	Example: if you need to import a 330 GB database onto a PlanetScale **`M-160`** there are three storage sizes available: 118 GB, 468 GB, 1.25GB. You should use the 1.25TB option during the migration.
 
-	Tip: Not all sizes available on both architectures; the storage size value in the cluster type cards are dropdowns!
+	Tip: not all sizes are available on both architectures; the storage size value in the cluster type cards are dropdowns!
 
 	After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option (as per the example). **Don't worry! Resizing is a no-downtime operation that can be performed on the [cluster configuration](https://planetscale.com/blog/postgres/cluster-configuration) page.**
 </Callout>
 
 ![PlanetScale database creation screen showing region, database engine, and storage options](/blog/neon-to-planetscale-migration/planetscale-database-creation.png)
 
-Once you're ready, go ahead and create your database and watch PlanetScale do it's magic!
+Once you're ready, go ahead and create your database and watch PlanetScale do its magic!
 
 ### Getting database credentials
 
@@ -99,7 +101,7 @@ Now on the dashboard of your new database, click "Connect" in the top-right.
 
 ![PlanetScale dashboard showing the Connect button in the top-right corner](/blog/neon-to-planetscale-migration/planetscale-connect-button.png)
 
-This will launch the role creation wizard. We'll know create our role which we'll use for our migration. It is considered best practice to not use one role with high-level permissions for everything.
+This will launch the role creation wizard. We'll now create our role, which we'll use for our migration. It is considered best practice to not use one role with high-level permissions for everything.
 
 `pg_read_all_data` and `pg_write_all_data` should be ticked by default. You'll need to enable `pg_create_subscription` and `postgres` in addition to those.
 
@@ -238,7 +240,7 @@ psql \
 	-f schema.sql
 ```
 
-The PlanetScale docs say that you may see errors in the format of `psql:schema.sql:LINE: ERROR: DESCRIPTION`. I haven't encountered this myself through the couple of simulated migrations I've done, but if you find anything concerning, contact PlanetScale before continuing.
+The PlanetScale docs say that you may see errors in the format of `psql:schema.sql:LINE: ERROR: DESCRIPTION`. I haven't encountered this myself in the couple of simulated migrations I've done, but if you find anything concerning, contact PlanetScale before continuing.
 
 </Step>
 
@@ -262,7 +264,7 @@ Run the following SQL statement to create a publication on Neon:
 CREATE PUBLICATION replicate_to_planetscale FOR ALL TABLES;
 ```
 
-This should output something like `CREATE PUBLICATION{:sql}` if ran correctly.
+This should output something like `CREATE PUBLICATION{:sql}` if run correctly.
 
 Now we need to tell PlanetScale to connect and subscribe to the publication.
 
@@ -281,7 +283,14 @@ CONNECTION 'host=$NEON_HOST dbname=$NEON_DBNAME user=$NEON_USERNAME password=$NE
 PUBLICATION replicate_to_planetscale WITH (copy_data = true);"
 ```
 
-Congrats! Your PlanetScale database is now catching up with your Neon database. As I wrote above, this is near instant for small databases. But even if it's not, we can work on migrating indexes while it's copying / replicating.
+This should log:
+
+```sql
+NOTICE: created replication slot "replicate_from_neon" on publisher
+CREATE SUBSCRIPTION
+```
+
+Congrats! Your PlanetScale database is now catching up with your Neon database. As I wrote above, this is near instant for small databases. But even if it's not, we can work on migrating sequences while it's copying / replicating.
 
 </Step>
 
@@ -323,18 +332,40 @@ In my case, this returns the following:
 You can see that I got sequences for the 2 ID fields in my 2 tables, which is expected since both are defined as `SERIAL`.
 
 <Callout title="Skip condition" type="error">
-	If you get an empty table, you can safely skip this section (to [Moving reads & writes to PlanetScale](https://www.notion.so/6-Moving-reads-writes-to-PlanetScale-2a0bf42117f8800ab74effd3640ae8c5?pvs=21)) since you do not have anything which uses sequences.
+	If you get an empty table, you can safely skip this section (to [Moving reads & writes to PlanetScale](#moving-reads--writes-to-planetscale)) since you do not have anything which uses sequences.
 </Callout>
 
-You might think copying the sequences is enough, however you'll most likely exceed the migrated sequences by the time you cut over. For this reason your have to increment the sequences by an amount you're sure you won't exceed before moving the reads and writes to PlanetScale.
+You might think copying the sequences is enough, however you'll most likely exceed the migrated sequences by the time you cut over. For this reason you have to increment the sequences by an amount you're sure you won't exceed before moving the reads and writes to PlanetScale.
 
-Run the following query on Neon to generate statements to move the sequences ahead a bit. **Change the amount added in proportion to how frequently records are inserted into your tables.**
+<Callout title="If you do not know how to measure, or don't want to guess this yourself" type="info">
+	It might be beneficial to use the [`ff-seq.sh` script](https://github.com/planetscale/migration-scripts/blob/main/postgres-direct/ff-seq.sh) provided by PlanetScale, which, when provided with your Neon database credentials (`--primary`), PlanetScale credentials (`--secondary`), and a `--skip` property in seconds, will sample your database and fast-forward the sequences on your PlanetScale database enough to only catch up by the amount of seconds provided.
+
+	So in practice, you could provide a `--skip` value of 18,000, which will give you time for 5 hours to complete the migration and cut-over.
+
+	**If you know your constraints, the solution is straightforward. Assume 100 records inserted per second and a 5-hour migration window. You can calculate the total records: $$100\,\frac{\text{records}}{\text{sec}} \times 18,000\,\text{sec} \, (5\,\text{hours}) = 1{,}800{,}000$$. Then fast-forward your sequences by that amount.**
+
+	**Doing these manual calculations essentially achieves what the script does.**
+</Callout>
+
+Run the following query on Neon to generate statements to move the sequences ahead a bit: **Change the amount added in proportion to how frequently records are inserted into your tables.**
 
 ```sql
-SELECT 'SELECT setval(''' || schemaname || '.' || sequencename || ''', '
+SELECT 'SELECT setval(''' || schemaname || '."' || sequencename || '"''::regclass, '
 	|| (last_value + 10000) || ');' AS query
 FROM pg_sequences;
 ```
+<Callout title="PlanetScale docs inaccuracy" type="warning">
+	As of writing, the PlanetScale docs use incorrect quoting that treats the whole `public.sequencename` as a single identifier, causing Postgres to interpret it as a column reference instead of a sequence name.
+	
+	The corrected version above properly quotes only the sequence name and uses `::regclass` to resolve it correctly.
+
+	If you're interested, this is what running the generated statements outputted by the bad generator looks like:
+	```sql
+	> SELECT setval("public.User_id_seq", 55000);
+	ERROR:  column "public.User_id_seq" does not exist
+	LINE 1: SELECT setval("public.User_id_seq", 55000);
+	```
+</Callout>
 
 This will output something like:
 
@@ -352,26 +383,38 @@ Now connect to your PlanetScale database:
 PGPASSWORD=$PLANETSCALE_PASSWORD \
 psql \
 	-h $PLANETSCALE_HOST \
-  -U $PLANETSCALE_USERNAME \
-  -p 5432 \
-  $PLANETSCALE_DBNAME
+	-U $PLANETSCALE_USERNAME \
+	-p 5432 \
+	$PLANETSCALE_DBNAME
 ```
 
 Run the queries outputted by the generator statement from the Neon database:
 
-```shell
+```sql
 SELECT setval('public.User_id_seq', 55000);
+```
 
+```sql
 SELECT setval('public.Url_id_seq', 2710000);
 ```
 
-This should result in:
+These should result in:
 
-```shell
-TODO: result
+```sql
+ setval
+--------
+  55000
+(1 row)
 ```
 
-Now for verification, [check the query we ran on Neon](https://www.notion.so/Migrate-your-database-from-Neon-to-PlanetScale-with-zero-downtime-29ebf42117f8802088e3ea54add3ad08?pvs=21), but now on PlanetScale, it should report the newly set values:
+```sql
+ setval
+---------
+ 2710000
+(1 row)
+```
+
+Now for verification, [check the query we ran on Neon](#handling-sequences-if-you-even-use-those), but now on PlanetScale, it should report the newly set values:
 
 ```sql
  schemaname | sequencename | next_value
@@ -418,19 +461,27 @@ SELECT table_name, row_count FROM (
 
 For me, this results in:
 
+Neon:
 ```sql
-> Neon
-TODO: output
+ table_name | row_count
+------------+-----------
+ Url        |   2700000
+ User       |     45000
+(2 rows)
+```
 
-> PlanetScale
-TODO: output
+PlanetScale:
+```sql
+ table_name | row_count
+------------+-----------
+ Url        |   2700000
+ User       |     45000
+(2 rows)
 ```
 
 If you see the row counts matching between the 2 databases, this check passes! If it's off by a significant amount, wait until it catches up.
 
-If both numbers are growing and both results are consistently off by a couple of records, replication may not be fast enough relative to your row insertions. This is fine, because once your reads and writes go to PlanetScale, Neon will be able to quickly replicate those remaining records.
-
-The other way is with Long Sequence Numbers, or LSNs. ??TBA: explanation of LSNs??
+The other way is with Long Sequence Numbers, or LSNs. LSNs are positions in PostgreSQL's Write-Ahead Log (WAL) that track the exact location of database changes. When replication is fully caught up, the LSN on your source database (Neon) should match the `received_lsn` and `latest_end_lsn` values on your replica (PlanetScale). This is more precise than counting rows because it verifies that every single change has been replicated, not just that the final counts match.
 
 Run the following on your Neon database:
 
@@ -441,7 +492,10 @@ SELECT pg_current_wal_lsn();
 This should return something like:
 
 ```sql
-TODO: result
+ pg_current_wal_lsn
+--------------------
+ 0/4ED70278
+(1 row)
 ```
 
 Now, run this on PlanetScale:
@@ -454,13 +508,17 @@ SELECT received_lsn, latest_end_lsn
 
 (This is different because we need to check the subscription status, not the wal lsn of the db itself.)
 
-This should return:
+This returned the following for me:
 
 ```sql
-TBA: result
+ received_lsn | latest_end_lsn
+--------------+----------------
+ 0/4ED70278   | 0/4ED70278
+(1 row)
 ```
 
 You should see all of these values match up. As simple as that! If you don't, do the same as with the row count checks: wait.
+(It's totally possible for the row counts to match, but for the LSNs to not.)
 
 ### The move
 
@@ -470,7 +528,7 @@ You should now change the database credentials in your app to PlanetScale's. Cre
 
 ### The retirement
 
-It's probably not the best idea to shut down the Neon database yet. We need to make sure that no other connection's except PlanetScale's subscription exist so you know that no one is connected to the old deployment of your app at this point.
+It's probably not the best idea to shut down the Neon database yet. We need to make sure that no other connections except PlanetScale's subscription exist so you know that no one is connected to the old deployment of your app at this point.
 
 Go to your Neon project, then "Monitoring" in the sidebar, then find the "Connections count" graph. Check the "Total" value, and **verify it's 1**.
 
@@ -498,26 +556,24 @@ You can disable the replication by first clearing the subscription on PlanetScal
 Run this on PlanetScale to clear the subscription:
 
 ```sql
-TBA: SQL query
+DROP SUBSCRIPTION replicate_from_neon;
 ```
 
 If that ran successfully, run this on Neon to clear the publication:
 
 ```sql
-TBA: SQL query result
+DROP PUBLICATION replicate_to_planetscale;
 ```
 
 That's it! The 2 databases are now decoupled.
 
 ### Getting rid of table & index bloat
 
-Debloating is out of scope for this guide, but this is very well documented by PlanetScale. You're probably going to want to use something like `pg_squeeze` .
-
-TBA: link to pg_squeeze setup for table & index bloat
+Debloating is out of scope for this guide, but this is very well documented by PlanetScale. You're probably going to want to use something like `pg_squeeze`. For which documentation is available [here](https://planetscale.com/docs/postgres/extensions/pg_squeeze).
 
 ### Downsizing
 
-TBA: link to downsizing guide
+You can downsize your database after the migration as described [here](https://planetscale.com/docs/plans/planetscale-skus#upsizing-and-downsizing-clusters).
 
 </Step>
 </Steps>
