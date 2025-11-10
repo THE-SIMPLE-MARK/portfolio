@@ -31,7 +31,7 @@ This database has been seeded with 45,000 users with 60 shortened URLs each, tot
 
 This guide walks through migrating a 2.7M record database with foreign keys, auto-incrementing IDs, and unique constraints. These parts tend to be the most problematic during migrations. The same SQL and methods scale regardless of whether you have 2 tables or 200.
 	
-For production examples: [OpenSecret](https://opensecret.cloud/) used [PlanetScale's migration scripts](https://github.com/planetscale/migration-scripts) based on [their migration guide](https://planetscale.com/blog/postgres/imports/neon#3-prepare-the-neon-database) for their migration. You can read their [blog post](https://blog.opensecret.cloud/why-we-migrated-from-neon-to-planetscale/) about it. This guide follows the same documentation, with the scripts available as automation options.
+For production examples: [OpenSecret](https://opensecret.cloud/) used [PlanetScale's migration scripts](https://planetscale.com/docs/postgres/imports/neon) based on [their migration guide](https://planetscale.com/blog/postgres/imports/neon#3-prepare-the-neon-database) for their migration. You can read their [blog post](https://blog.opensecret.cloud/why-we-migrated-from-neon-to-planetscale/) about it. This guide follows the same documentation, with the scripts available as automation options.
 
 You can find many more [case studies done by PlanetScale](https://planetscale.com/case-studies), including how those companies migrated.
 
@@ -76,7 +76,7 @@ However, before you hurry onto the next steps, here are some things to consider:
 - **Region**: You typically want to use the same region that you deploy your other application infrastructure to.
 - **Database engine**: This guide assumes you are migrating from Neon, so make sure to choose Postgres.
 - **Storage options**:
-    - [**PlanetScale Metal**](https://planetscale.com/blog/metal): For applications needing high-performance and low-latency I/O. **You'll need to choose your storage size during creation (now)**. (Don't worry, you can resize it later!)
+    - [**PlanetScale Metal**](https://planetscale.com/metal): For applications needing high-performance and low-latency I/O. **You'll need to choose your storage size during creation (now)**. (Don't worry, you can resize it later!)
     - **Elastic Block Storage / Google Presistent Disk**: Network attached storage. For applications that need more flexible storage options or smaller compute instances.
 
 <Callout title="If you choose PlanetScale Metal…." type="warning">
@@ -86,7 +86,7 @@ However, before you hurry onto the next steps, here are some things to consider:
 
 	Tip: not all sizes are available on both architectures; the storage size values in the cluster type cards are dropdowns!
 
-	After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option (as per the example). **Don't worry! Resizing is a no-downtime operation that can be performed on the [cluster configuration](https://planetscale.com/blog/postgres/cluster-configuration) page.**
+	After importing and cleaning up table bloat, you may be able to downsize to the 468 GB option (as per the example). **Don't worry! Resizing is a no-downtime operation. More on that in the PlanetScale [Cluster configuration](https://planetscale.com/docs/postgres/cluster-configuration#adjusting-cluster-size) docs.**
 </Callout>
 
 ![PlanetScale database creation screen showing region, database engine, and storage options](/blog/neon-to-planetscale-migration/planetscale-database-creation.png)
@@ -571,7 +571,7 @@ Debloating is out of scope for this guide, but this is very well documented by P
 
 ### Downsizing
 
-You can downsize your database after the migration as described [here](https://planetscale.com/docs/plans/planetscale-skus#upsizing-and-downsizing-clusters).
+You can downsize your database after the migration as described [here](https://planetscale.com/docs/postgres/cluster-configuration#adjusting-cluster-size).
 
 </Step>
 </Steps>
