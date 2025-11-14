@@ -68,8 +68,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body className="flex flex-col min-h-screen">
 				<RootProvider>{children}</RootProvider>
 				<Scripts />
-				<Analytics scriptSrc={`a/${scriptName}`} />
-				<SpeedInsights scriptSrc={`si/${scriptName}`} />
+				<Analytics scriptSrc={`/a/${scriptName}`} />
+				<SpeedInsights scriptSrc={`/si/${scriptName}`} />
 			</body>
 		</html>
 	)
