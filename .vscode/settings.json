@@ -15,5 +15,8 @@
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "explicit",
 		"source.fixAll.biome": "explicit"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome",
 	}
 }
