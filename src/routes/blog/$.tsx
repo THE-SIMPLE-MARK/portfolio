@@ -144,7 +144,6 @@ const ratingAction = createServerFn({
 				content,
 			}),
 		})
-		console.log(response)
 
 		if (response.status === 429) throw new Error("RATE_LIMITED")
 
