@@ -41,7 +41,7 @@ export function LLMCopyButton({
 		try {
 			await navigator.clipboard.write([
 				new ClipboardItem({
-					"text/plain": fetch(markdownUrl).then(async (res) => {
+					"text/plain": fetch(markdownUrl).then(async res => {
 						const content = await res.text()
 						cache.set(markdownUrl, content)
 
@@ -151,7 +151,7 @@ export function ViewOptions({
 				<ChevronDown className="size-3.5 text-fd-muted-foreground" />
 			</PopoverTrigger>
 			<PopoverContent className="flex flex-col">
-				{items.map((item) => (
+				{items.map(item => (
 					<a
 						key={item.href}
 						href={item.href}
