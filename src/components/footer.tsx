@@ -1,4 +1,5 @@
 import { ThemeToggle } from "fumadocs-ui/components/layout/theme-toggle"
+import { RootProvider } from "fumadocs-ui/provider/next"
 
 export function Footer() {
 	return (
@@ -8,10 +9,12 @@ export function Footer() {
 				<p className="hidden sm:block">All rights reserved.</p>
 			</div>
 
-			<ThemeToggle
-				className="*:size-6 sm:*:size-6.5"
-				mode="light-dark-system"
-			/>
+			<RootProvider>
+				<ThemeToggle
+					className="*:size-6 sm:*:size-6.5"
+					mode="light-dark-system"
+				/>
+			</RootProvider>
 		</footer>
 	)
 }
