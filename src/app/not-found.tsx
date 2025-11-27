@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { MainLayout } from "./mainLayout"
+import { MainLayout } from "~/components/mainLayout"
 
-export function NotFound() {
+export default function NotFound() {
 	return (
 		<MainLayout>
 			<div className="flex flex-col items-center gap-4 text-center">
