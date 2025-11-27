@@ -7,6 +7,7 @@ import {
 import { ThumbsDown, ThumbsUp } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { type SyntheticEvent, useEffect, useState, useTransition } from "react"
+import { submitFeedback } from "~/lib/actions/feedback"
 import { cn } from "~/lib/cn"
 import { buttonVariants } from "./ui/button"
 
@@ -28,11 +29,7 @@ export interface Feedback {
 	message: string
 }
 
-export function Feedback({
-	onRateAction,
-}: {
-	onRateAction: (feedback: Feedback) => Promise<void>
-}) {
+export function Feedback() {
 	const path = usePathname()
 	const [previous, setPrevious] = useState<Feedback | null>(null)
 	const [opinion, setOpinion] = useState<"good" | "bad" | null>(null)
@@ -66,7 +63,7 @@ export function Feedback({
 					message,
 				}
 
-				await onRateAction(feedback)
+				await submitFeedback(feedback)
 				setPrevious(feedback)
 				setMessage("")
 				setOpinion(null)
