@@ -1,16 +1,21 @@
 # Márk's portfolio
 
-Home sweet home.
+Home sweet home. Built with Next.js & Fumadocs. (boring but at least it works *khm khm Tanstack Start*)
+
+### Prerequisites
+
+- Bun (v1.x)
+- pnpm (v10.x)
 
 ## Development
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## Production
 
 ```bash
-npm run build
-npm run start
+pnpm run build
+pnpm run start
 ```
