@@ -13,7 +13,9 @@ const env = createEnv({
 	 * isn't built with invalid env vars.
 	 */
 	server: {
-		DATABASE_URL: z.string().url(),
+		DISCORD_WEBHOOK_URL: z.url(),
+		REDIS_URL: z.url(),
+		GITHUB_TOKEN: z.string(),
 	},
 
 	/**
@@ -30,10 +32,11 @@ const env = createEnv({
 	 * middlewares) or client-side so we need to destruct manually.
 	 */
 	runtimeEnv: {
-		DATABASE_URL: process.env.DATABASE_URL,
+		DISCORD_WEBHOOK_URL: process.env.DISCORD_WEBHOOK_URL,
+		REDIS_URL: process.env.REDIS_URL,
+		GITHUB_TOKEN: process.env.GITHUB_TOKEN,
 		NODE_ENV: process.env.NODE_ENV,
 		VERCEL_URL: process.env.VERCEL_URL,
-		// NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 	},
 	/**
 	 * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

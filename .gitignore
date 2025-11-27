@@ -11,6 +11,9 @@
 # prisma generations
 /prisma-generated
 
+# generated content
+.source
+
 # next.js
 /.next/
 /out/

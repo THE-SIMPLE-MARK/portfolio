@@ -22,6 +22,9 @@ export const postRouter = createTRPCRouter({
 		}),
 
 	getLatest: publicProcedure.query(async () => {
-		return null
+		return {
+			id: "1",
+			name: "Hello World",
+		}
 	}),
 })

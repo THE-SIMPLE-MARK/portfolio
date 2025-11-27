@@ -29,7 +29,8 @@
 		/* Path Aliases */
 		"baseUrl": "./",
 		"paths": {
-			"~/*": ["./src/*"]
+			"~/*": ["./src/*"],
+			"fumadocs-mdx:collections/*": [".source/*"]
 		}
 	},
 	"include": [
@@ -37,7 +38,8 @@
 		"**/*.tsx",
 		"**/*.js",
 		".next/types/**/*.ts",
-		".next/dev/types/**/*.ts"
+		".next/dev/types/**/*.ts",
+		"next.config.mjs"
 	],
-	"exclude": ["node_modules", "prisma-generated/**"]
+	"exclude": ["node_modules", "prisma-generated/**", "old"]
 }
