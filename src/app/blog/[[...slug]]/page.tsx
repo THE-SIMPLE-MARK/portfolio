@@ -11,7 +11,7 @@ import { getMDXComponents } from "~/lib/mdx/mdxComponents"
 import { source } from "~/lib/mdx/source"
 
 interface PageProps {
-	params: Promise<{ slug: string[] }>
+	params: Promise<{ slug?: string[] }>
 }
 
 export default async function Page({ params }: PageProps) {
