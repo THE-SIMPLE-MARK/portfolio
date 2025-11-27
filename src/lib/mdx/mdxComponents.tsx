@@ -5,8 +5,8 @@ import type { MDXComponents } from "mdx/types"
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
 	return {
 		...defaultComponents,
-		img: (props) => <ImageZoom {...props} />,
-		input: (props) => {
+		img: props => <ImageZoom {...props} />,
+		input: props => {
 			// make checkboxes clickable (useful for the reader to tick off steps)
 			if (props.type === "checkbox")
 				return <input {...props} disabled={false} />

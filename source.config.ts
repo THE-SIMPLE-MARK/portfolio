@@ -14,7 +14,7 @@ export const blog = defineDocs({
 export default defineConfig({
 	mdxOptions: {
 		remarkPlugins: [remarkMath],
-		rehypePlugins: (v) => [rehypeKatex, ...v],
+		rehypePlugins: v => [rehypeKatex, ...v],
 		rehypeCodeOptions: {
 			inline: "tailing-curly-colon",
 			themes: {

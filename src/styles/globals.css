@@ -28,7 +28,7 @@
 	}
 
 	#nd-docs-layout {
-		img[alt=erd] {
+		img[alt="erd"] {
 			@apply mx-auto;
 			height: 500px;
 		}
@@ -37,7 +37,7 @@
 
 @media print {
 	#nd-docs-layout {
-		--fd-sidebar-width: 0px !important;
+		--fd-sidebar-width: 0px;
 	}
 	#nd-sidebar,
 	#nd-sidebar-mobile,

@@ -1,16 +1,15 @@
 "use client"
-import { getRouteApi } from "@tanstack/react-router"
 import { cva } from "class-variance-authority"
 import {
 	Collapsible,
 	CollapsibleContent,
 } from "fumadocs-ui/components/ui/collapsible"
 import { ThumbsDown, ThumbsUp } from "lucide-react"
+import { usePathname } from "next/navigation"
 import { type SyntheticEvent, useEffect, useState, useTransition } from "react"
+import { submitFeedback } from "~/lib/actions/feedback"
 import { cn } from "~/lib/cn"
 import { buttonVariants } from "./ui/button"
-
-const route = getRouteApi("/blog/$")
 
 const rateButtonVariants = cva(
 	"inline-flex items-center gap-2 px-3 py-2 rounded-full font-medium border text-sm [&_svg]:size-4 disabled:cursor-not-allowed",
@@ -30,13 +29,8 @@ export interface Feedback {
 	message: string
 }
 
-export function Feedback({
-	onRateAction,
-}: {
-	onRateAction: (feedback: Feedback) => Promise<void>
-}) {
-	const splat = route.useParams()._splat
-	const path = splat && splat !== "" ? splat : "index"
+export function Feedback() {
+	const path = usePathname()
 	const [previous, setPrevious] = useState<Feedback | null>(null)
 	const [opinion, setOpinion] = useState<"good" | "bad" | null>(null)
 	const [message, setMessage] = useState("")
@@ -69,7 +63,7 @@ export function Feedback({
 					message,
 				}
 
-				await onRateAction(feedback)
+				await submitFeedback(feedback)
 				setPrevious(feedback)
 				setMessage("")
 				setOpinion(null)
@@ -89,7 +83,7 @@ export function Feedback({
 	return (
 		<Collapsible
 			open={opinion !== null || previous !== null}
-			onOpenChange={(v) => {
+			onOpenChange={v => {
 				if (!v) setOpinion(null)
 			}}
 			id="feedback"
@@ -159,10 +153,10 @@ export function Feedback({
 							autoFocus
 							required
 							value={message}
-							onChange={(e) => setMessage(e.target.value)}
+							onChange={e => setMessage(e.target.value)}
 							className="border rounded-lg bg-fd-secondary text-fd-secondary-foreground p-3 resize-y focus-visible:outline-none placeholder:text-fd-muted-foreground"
 							placeholder="Leave your feedback..."
-							onKeyDown={(e) => {
+							onKeyDown={e => {
 								if (!e.shiftKey && e.key === "Enter") {
 									submit(e)
 								}

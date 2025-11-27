@@ -1,7 +1,7 @@
-import { Link } from "@tanstack/react-router"
-import { MainLayout } from "./mainLayout"
+import Link from "next/link"
+import { MainLayout } from "~/components/mainLayout"
 
-export function NotFound() {
+export default function NotFound() {
 	return (
 		<MainLayout>
 			<div className="flex flex-col items-center gap-4 text-center">
@@ -14,7 +14,7 @@ export function NotFound() {
 					changed, or is temporarily unavailable.
 				</p>
 				<Link
-					to="/"
+					href="/"
 					className="mt-4 px-4 py-2 rounded-lg bg-fd-primary text-fd-primary-foreground font-medium text-sm hover:opacity-90 transition-opacity"
 				>
 					Back to Home
