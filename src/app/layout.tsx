@@ -1,4 +1,6 @@
 import "~/styles/globals.css"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
 
@@ -18,7 +20,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
-			<body>{children}</body>
+			<body>
+				{children}
+				<Analytics scriptSrc="/a/script.js" />
+				<SpeedInsights scriptSrc="/si/script.js" />
+			</body>
 		</html>
 	)
 }

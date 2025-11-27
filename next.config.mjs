@@ -6,7 +6,22 @@ import "./src/env.js"
 import { createMDX } from "fumadocs-mdx/next"
 
 /** @type {import("next").NextConfig} */
-const config = {}
+const config = {
+	async rewrites() {
+		return {
+			beforeFiles: [
+				{
+					source: "/a/:path*",
+					destination: "https://va.vercel-scripts.com/v1/:path*",
+				},
+				{
+					source: "/si/:path*",
+					destination: "https://va.vercel-scripts.com/v1/speed-insights/:path*",
+				},
+			],
+		}
+	},
+}
 
 const withMDX = createMDX()
 
