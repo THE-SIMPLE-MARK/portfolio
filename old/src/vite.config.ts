@@ -30,11 +30,11 @@ export default defineConfig({
 					path: "/llms.txt",
 					prerender: { enabled: true },
 				},
-				...blogPaths.map((path) => ({
+				...blogPaths.map(path => ({
 					path,
 					prerender: { enabled: true },
 				})),
-				...blogPathsWithIndex.map((path) => ({
+				...blogPathsWithIndex.map(path => ({
 					path: `${path}.md`,
 					prerender: { enabled: true },
 				})),
@@ -44,7 +44,7 @@ export default defineConfig({
 				host: "https://bmarkk.tech",
 			},
 		}),
-		mdx(await import("../../source.config")),
+		mdx(await import("./source.config")),
 		react(),
 		tailwindcss(),
 		tsConfigPaths({
@@ -62,13 +62,13 @@ export default defineConfig({
 export async function getContentPaths(keepIndex: boolean = false) {
 	const files = await glob("content/blog/**/*.{md,mdx}")
 
-	return files.map((file) => {
+	return files.map(file => {
 		const relativePath = path.relative("content/blog", file)
 		const slugs = relativePath
 			.replace(/\.(md|mdx)$/, "")
 			.split(path.sep)
 			.filter(Boolean)
-			.filter((slug) => (keepIndex ? true : slug !== "index"))
+			.filter(slug => (keepIndex ? true : slug !== "index"))
 
 		if (slugs.length === 0) return "/blog"
 		return `/blog/${slugs.join("/")}`
