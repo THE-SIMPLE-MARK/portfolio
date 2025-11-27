@@ -69,7 +69,7 @@ export async function generateMetadata({
 	if (!page) notFound()
 
 	return {
-		title: page.data.title,
+		title: `${page.data.title} | Márk's blog`,
 		description: page.data.description,
 	}
 }
