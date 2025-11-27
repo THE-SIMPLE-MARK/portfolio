@@ -44,7 +44,7 @@ export default defineConfig({
 				host: "https://bmarkk.tech",
 			},
 		}),
-		mdx(await import("./source.config")),
+		mdx(await import("../../source.config")),
 		react(),
 		tailwindcss(),
 		tsConfigPaths({
