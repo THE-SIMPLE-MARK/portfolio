@@ -19,9 +19,6 @@
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"[prisma]": {
-		"editor.defaultFormatter": "Prisma.prisma"
-	},
 	// better-comments
 	"better-comments.tags": [
 		{

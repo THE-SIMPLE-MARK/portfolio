@@ -41,5 +41,5 @@
 		".next/dev/types/**/*.ts",
 		"next.config.mjs"
 	],
-	"exclude": ["node_modules", "prisma-generated/**", "old"]
+	"exclude": ["node_modules", "old"]
 }

@@ -8,9 +8,6 @@
 # testing
 /coverage
 
-# prisma generations
-/prisma-generated
-
 # generated content
 .source
 

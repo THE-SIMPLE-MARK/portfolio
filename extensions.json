@@ -1,9 +1,0 @@
-{
-	"recommendations": [
-		"biomejs.biome",
-		"EdwinHuiSH.better-comments-next",
-		"mikestead.dotenv",
-		"prisma.prisma",
-		"vitest.explorer"
-	]
-}

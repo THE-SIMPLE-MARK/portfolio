@@ -1,10 +1,7 @@
 onlyBuiltDependencies:
-  - '@prisma/client'
-  - '@prisma/engines'
   - '@tailwindcss/oxide'
   - '@vercel/speed-insights'
   - esbuild
   - lefthook
-  - prisma
   - sharp
   - unrs-resolver
