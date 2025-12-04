@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 @import "katex/dist/katex.min.css";
@@ -9,11 +10,15 @@
 	--font-handwritten: "Gloria Hallelujah", cursive;
 	--font-heading: "Atkinson Hyperlegible Next Variable", var(--font-sans);
 
-	--color-fd-primary: #0087be;
+	--color-fd-primary: var(--accent);
+}
+
+:root {
+	--accent: #0087be;
 }
 
 .dark {
-	--color-fd-primary: #0087be;
+	--color-fd-primary: var(--accent);
 	--color-fd-primary-foreground: var(--color-fd-primary-foreground);
 }
 

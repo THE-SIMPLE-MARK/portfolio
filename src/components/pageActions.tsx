@@ -1,10 +1,5 @@
 "use client"
-import { cva } from "class-variance-authority"
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "fumadocs-ui/components/ui/popover"
+import { Button, Dropdown } from "@heroui/react"
 import { useCopyButton } from "fumadocs-ui/utils/use-copy-button"
 import {
 	Check,
@@ -14,12 +9,8 @@ import {
 	MessageCircleIcon,
 } from "lucide-react"
 import { useMemo, useState } from "react"
-import { SciraAILogo } from "~/components/logos/sciraai"
-import { buttonVariants } from "~/components/ui/button"
-import { cn } from "~/lib/cn"
-import { AnthrophicLogo } from "./logos/anthrophic"
-import { GithubLogo } from "./logos/github"
-import { OpenAILogo } from "./logos/openai"
+import { FaGithub } from "react-icons/fa"
+import { SiClaude, SiOpenai } from "react-icons/si"
 
 const cache = new Map<string, string>()
 
@@ -54,28 +45,21 @@ export function LLMCopyButton({
 		}
 	})
 
+	const Icon = checked ? Check : Copy
+
 	return (
-		<button
+		<Button
 			type="button"
-			disabled={isLoading}
-			className={cn(
-				buttonVariants({
-					color: "secondary",
-					size: "sm",
-					className: "gap-2 [&_svg]:size-3.5 [&_svg]:text-fd-muted-foreground",
-				}),
-			)}
+			isPending={isLoading}
 			onClick={onClick}
+			size="sm"
+			variant="tertiary"
 		>
-			{checked ? <Check /> : <Copy />}
+			<Icon className="size-3.5" />
 			Copy Markdown
-		</button>
+		</Button>
 	)
 }
-
-const optionVariants = cva(
-	"text-sm p-2 rounded-lg inline-flex items-center gap-2 hover:text-fd-accent-foreground hover:bg-fd-accent [&_svg]:size-4",
-)
 
 export function ViewOptions({
 	markdownUrl,
@@ -96,20 +80,14 @@ export function ViewOptions({
 			typeof window !== "undefined"
 				? new URL(markdownUrl, window.location.origin)
 				: "loading"
+
 		const q = `Read ${fullMarkdownUrl}, I want to ask questions about it.`
 
 		return [
 			{
 				title: "Open in GitHub",
 				href: githubUrl,
-				icon: <GithubLogo />,
-			},
-			{
-				title: "Open in Scira AI",
-				href: `https://scira.ai/?${new URLSearchParams({
-					q,
-				})}`,
-				icon: <SciraAILogo />,
+				icon: FaGithub,
 			},
 			{
 				title: "Open in ChatGPT",
@@ -117,54 +95,47 @@ export function ViewOptions({
 					hints: "search",
 					q,
 				})}`,
-				icon: <OpenAILogo />,
+				icon: SiOpenai,
 			},
 			{
 				title: "Open in Claude",
 				href: `https://claude.ai/new?${new URLSearchParams({
 					q,
 				})}`,
-				icon: <AnthrophicLogo />,
+				icon: SiClaude,
 			},
 			{
 				title: "Open in T3 Chat",
 				href: `https://t3.chat/new?${new URLSearchParams({
 					q,
 				})}`,
-				icon: <MessageCircleIcon />,
+				icon: MessageCircleIcon,
 			},
 		]
 	}, [githubUrl, markdownUrl])
 
 	return (
-		<Popover>
-			<PopoverTrigger
-				className={cn(
-					buttonVariants({
-						color: "secondary",
-						size: "sm",
-						className: "gap-2",
-					}),
-				)}
-			>
+		<Dropdown>
+			<Button size="sm" variant="tertiary">
 				Open
-				<ChevronDown className="size-3.5 text-fd-muted-foreground" />
-			</PopoverTrigger>
-			<PopoverContent className="flex flex-col">
-				{items.map(item => (
-					<a
-						key={item.href}
-						href={item.href}
-						rel="noreferrer noopener"
-						target="_blank"
-						className={cn(optionVariants())}
-					>
-						{item.icon}
-						{item.title}
-						<ExternalLinkIcon className="text-fd-muted-foreground size-3.5 ms-auto" />
-					</a>
-				))}
-			</PopoverContent>
-		</Popover>
+				<ChevronDown className="size-3.5" />
+			</Button>
+			<Dropdown.Popover>
+				<Dropdown.Menu>
+					{items.map(item => (
+						<Dropdown.Item
+							key={item.href}
+							href={item.href}
+							rel="noreferrer noopener"
+							target="_blank"
+						>
+							<item.icon className="size-4" />
+							{item.title}
+							<ExternalLinkIcon className="text-fd-muted-foreground ml-auto size-3.5" />
+						</Dropdown.Item>
+					))}
+				</Dropdown.Menu>
+			</Dropdown.Popover>
+		</Dropdown>
 	)
 }

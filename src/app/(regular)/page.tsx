@@ -1,5 +1,5 @@
+import { Button } from "@heroui/react"
 import Link from "next/link"
-import { buttonVariants } from "~/components/ui/button"
 
 export default function RegularPage() {
 	return (
@@ -12,9 +12,9 @@ export default function RegularPage() {
 				<br /> For now, you can check out my blog {";)"}
 			</p>
 
-			<Link className={buttonVariants({ color: "primary" })} href="/blog">
-				Open Blog
-			</Link>
+			<Button asChild>
+				<Link href="/blog">Open Blog</Link>
+			</Button>
 		</div>
 	)
 }

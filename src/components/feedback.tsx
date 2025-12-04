@@ -1,5 +1,5 @@
 "use client"
-import { cva } from "class-variance-authority"
+import { Button, FieldError, TextArea, TextField } from "@heroui/react"
 import {
 	Collapsible,
 	CollapsibleContent,
@@ -8,20 +8,6 @@ import { ThumbsDown, ThumbsUp } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { type SyntheticEvent, useEffect, useState, useTransition } from "react"
 import { submitFeedback } from "~/lib/actions/feedback"
-import { cn } from "~/lib/cn"
-import { buttonVariants } from "./ui/button"
-
-const rateButtonVariants = cva(
-	"inline-flex items-center gap-2 px-3 py-2 rounded-full font-medium border text-sm [&_svg]:size-4 disabled:cursor-not-allowed",
-	{
-		variants: {
-			active: {
-				true: "bg-fd-accent text-fd-accent-foreground [&_svg]:fill-current",
-				false: "text-fd-muted-foreground",
-			},
-		},
-	},
-)
 
 export interface Feedback {
 	opinion: "good" | "bad"
@@ -91,36 +77,26 @@ export function Feedback() {
 		>
 			<div className="flex flex-row items-center gap-2">
 				<p className="text-sm font-medium pe-2">How is this blog?</p>
-				<button
-					type="button"
-					disabled={previous !== null}
-					className={cn(
-						rateButtonVariants({
-							active: activeOpinion === "good",
-						}),
-					)}
-					onClick={() => {
+				<Button
+					isDisabled={previous !== null}
+					onPress={() => {
 						setOpinion("good")
 					}}
+					variant={activeOpinion === "good" ? "primary" : "tertiary"}
 				>
 					<ThumbsUp />
 					Good
-				</button>
-				<button
-					type="button"
-					disabled={previous !== null}
-					className={cn(
-						rateButtonVariants({
-							active: activeOpinion === "bad",
-						}),
-					)}
-					onClick={() => {
+				</Button>
+				<Button
+					isDisabled={previous !== null}
+					onPress={() => {
 						setOpinion("bad")
 					}}
+					variant={activeOpinion === "bad" ? "primary" : "tertiary"}
 				>
 					<ThumbsDown />
 					Bad
-				</button>
+				</Button>
 			</div>
 
 			<CollapsibleContent className="mt-3">
@@ -128,48 +104,31 @@ export function Feedback() {
 					<div className="px-3 py-6 flex flex-col items-center gap-3 bg-fd-card text-fd-muted-foreground text-sm text-center rounded-xl">
 						<p>Thank you for your feedback! {":)"}</p>
 						<div className="flex flex-row items-center gap-2">
-							<button
-								type="button"
-								className={cn(
-									buttonVariants({
-										color: "secondary",
-									}),
-									"text-xs",
-								)}
-								onClick={() => {
+							<Button
+								onPress={() => {
 									setOpinion(previous.opinion)
 									setPrevious(null)
 								}}
 							>
 								Submit Again
-							</button>
+							</Button>
 						</div>
 					</div>
 				) : (
 					<form className="flex flex-col gap-3" onSubmit={submit}>
-						{error && <p className="text-red-500 text-sm">{error}</p>}
-						<textarea
-							// biome-ignore lint/a11y/noAutofocus: autofocus is needed
-							autoFocus
-							required
-							value={message}
-							onChange={e => setMessage(e.target.value)}
-							className="border rounded-lg bg-fd-secondary text-fd-secondary-foreground p-3 resize-y focus-visible:outline-none placeholder:text-fd-muted-foreground"
-							placeholder="Leave your feedback..."
-							onKeyDown={e => {
-								if (!e.shiftKey && e.key === "Enter") {
-									submit(e)
-								}
-							}}
-							maxLength={1000}
-						/>
-						<button
-							type="submit"
-							className={cn(buttonVariants({ color: "outline" }), "w-fit px-3")}
-							disabled={isPending}
-						>
+						<TextField value={message} onChange={setMessage} maxLength={1000}>
+							<TextArea
+								className="resize-y"
+								placeholder="Leave your feedback..."
+								required
+								rows={4}
+								onSubmit={submit}
+							/>
+							{error && <FieldError>{error}</FieldError>}
+						</TextField>
+						<Button type="submit" isPending={isPending}>
 							{isPending ? "Submitting..." : "Submit"}
-						</button>
+						</Button>
 					</form>
 				)}
 			</CollapsibleContent>

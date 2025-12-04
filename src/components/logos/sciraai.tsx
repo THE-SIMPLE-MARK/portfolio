@@ -1,12 +1,6 @@
 export function SciraAILogo() {
 	return (
-		<svg
-			width="910"
-			height="934"
-			viewBox="0 0 910 934"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
+		<svg viewBox="0 0 910 934" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<title>Scira AI</title>
 			<path
 				d="M647.664 197.775C569.13 189.049 525.5 145.419 516.774 66.8849C508.048 145.419 464.418 189.049 385.884 197.775C464.418 206.501 508.048 250.131 516.774 328.665C525.5 250.131 569.13 206.501 647.664 197.775Z"
