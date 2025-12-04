@@ -1,4 +1,3 @@
-import { Footer } from "~/components/footer"
 import { MainLayout } from "~/components/mainLayout"
 
 export default function RegularLayout({

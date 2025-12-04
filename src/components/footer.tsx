@@ -1,5 +1,5 @@
-import { ThemeToggle } from "fumadocs-ui/components/layout/theme-toggle"
 import { RootProvider } from "fumadocs-ui/provider/next"
+import { ThemeToggle } from "~/components/themeToggle"
 
 export function Footer() {
 	return (
@@ -10,10 +10,7 @@ export function Footer() {
 			</div>
 
 			<RootProvider>
-				<ThemeToggle
-					className="*:size-6 sm:*:size-6.5"
-					mode="light-dark-system"
-				/>
+				<ThemeToggle className="*:size-6 sm:*:size-6.5" />
 			</RootProvider>
 		</footer>
 	)
