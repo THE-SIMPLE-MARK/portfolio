@@ -1,4 +1,4 @@
-import { ThemeToggle } from "fumadocs-ui/components/layout/theme-toggle"
+import { ThemeToggle } from "~/components/ui/theme-toggle"
 import { RootProvider } from "fumadocs-ui/provider/next"
 
 export function Footer() {
