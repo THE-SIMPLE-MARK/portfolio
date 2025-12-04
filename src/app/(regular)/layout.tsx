@@ -5,13 +5,5 @@ export default function RegularLayout({
 }: {
 	children: React.ReactNode
 }) {
-	return (
-		<MainLayout>
-			<main className="flex-1 w-full flex flex-col gap-4 my-auto">
-				{children}
-			</main>
-
-			<Footer />
-		</MainLayout>
-	)
+	return <MainLayout>{children}</MainLayout>
 }
