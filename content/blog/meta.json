@@ -10,7 +10,6 @@
 		"---Databases---",
 		"databases/neon-to-planetscale-migration",
 		"---Apple development---",
-		"apple-dev/aw-connectivity-fix",
-		"apple-dev/aw-symbols-syncing-fix"
+		"apple-dev/aw-connectivity-fix"
 	]
 }
