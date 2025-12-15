@@ -26,7 +26,11 @@ export default async function Page({ params }: PageProps) {
 	const githubUrl = `https://github.com/THE-SIMPLE-MARK/portfolio/blob/main/content/blog/${markdownPath}.mdx`
 
 	return (
-		<DocsPage toc={page.data.toc} full={page.data.full}>
+		<DocsPage
+			toc={page.data.toc}
+			tableOfContent={{ style: "clerk" }}
+			full={page.data.full}
+		>
 			<DocsTitle>{page.data.title}</DocsTitle>
 			<DocsDescription className="mb-0">
 				{page.data.description}
