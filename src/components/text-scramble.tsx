@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 
 const CHARS = "-_~=+*!@#%^&()[]{}|;:,.<>?/"
 
-export const TextScramble = ({
+export function TextScramble({
 	children,
 	className,
 	duration = 0.8,
@@ -15,7 +15,7 @@ export const TextScramble = ({
 	className?: string
 	duration?: number
 	delay?: number
-}) => {
+}) {
 	const [text, setText] = useState(children)
 	const [_isScrambling, setIsScrambling] = useState(true)
 
