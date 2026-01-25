@@ -3,11 +3,9 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 @import "katex/dist/katex.min.css";
-@import "@fontsource/gloria-hallelujah";
 @import "@fontsource-variable/atkinson-hyperlegible-next";
 
 @theme {
-	--font-handwritten: "Gloria Hallelujah", cursive;
 	--font-heading: "Atkinson Hyperlegible Next Variable", var(--font-sans);
 
 	--color-fd-primary: var(--accent);
@@ -23,6 +21,16 @@
 }
 
 @layer base {
+	:root {
+		--grid-color: rgba(0, 0, 0, 0.05);
+		--vignette-color: rgba(255, 255, 255, 0.8);
+	}
+
+	.dark {
+		--grid-color: rgba(255, 255, 255, 0.05);
+		--vignette-color: rgba(9, 9, 11, 0.8);
+	}
+
 	h1,
 	h2,
 	h3,

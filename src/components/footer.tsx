@@ -3,8 +3,8 @@ import { ThemeToggle } from "~/components/themeToggle"
 
 export function Footer() {
 	return (
-		<footer className="w-full absolute bottom-0 left-0 flex flex-row items-center justify-between gap-4 p-4">
-			<div className="flex flex-col gap-1 sm:flex-row text-xs text-fd-muted-foreground">
+		<footer className="w-full flex flex-row items-center justify-between gap-4 p-4 mt-auto">
+			<div className="flex flex-col gap-1 sm:flex-row text-xs text-fd-muted-foreground font-mono">
 				<p>Copyright © Márk Böszörményi.</p>
 				<p className="hidden sm:block">All rights reserved.</p>
 			</div>
