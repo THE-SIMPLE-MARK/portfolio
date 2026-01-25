@@ -127,7 +127,7 @@ function ProjectCard({
 						href={project.ctaUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors ml-auto"
+						className="flex items-center gap-2 text-sm text-white hover:text-emerald-400 transition-colors ml-auto"
 					>
 						VIEW <ExternalLink className="w-3 h-3" />
 					</a>
