@@ -13,17 +13,17 @@ export interface Project {
 
 export const projects: Project[] = [
 	{
-		slug: "personal-site",
+		slug: "idk",
 		title: "Lorem Ipsum",
 		description:
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
 		gradient: "from-pink-500 via-red-500 to-yellow-500",
-		ctaUrl: "https://github.com/THE-SIMPLE-MARK/portfolio",
+		ctaUrl: "https://example.com/idk",
 		techStack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
 		status: "DEPLOYED",
 	},
 	{
-		slug: "saas-dashboard",
+		slug: "something",
 		title: "Dolor Sit Amet",
 		description:
 			"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -33,7 +33,7 @@ export const projects: Project[] = [
 		status: "IN_DEVELOPMENT",
 	},
 	{
-		slug: "ecommerce-engine",
+		slug: "another-thing",
 		title: "Consectetur Elit",
 		description:
 			"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
