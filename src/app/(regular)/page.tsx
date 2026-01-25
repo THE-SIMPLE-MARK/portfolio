@@ -22,10 +22,10 @@ export default function RegularPage() {
 						System: Online
 					</motion.div>
 
-					<h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white">
+					<h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground">
 						<TextScramble delay={0.5}>Márk</TextScramble>
 						<br />
-						<span className="text-zinc-500">
+						<span className="text-muted-foreground">
 							<TextScramble delay={1.2}>Böszörményi</TextScramble>
 						</span>
 					</h1>
@@ -35,10 +35,10 @@ export default function RegularPage() {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ delay: 2.2, duration: 1 }}
-					className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto font-mono"
+					className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-mono"
 				>
 					<span className="text-accent">{">"}</span> Architecting{" "}
-					<span className="text-white font-bold bg-white/10 px-2 py-0.5 rounded-sm">
+					<span className="text-foreground font-bold bg-foreground/10 px-2 py-0.5 rounded-sm">
 						high-performance
 					</span>{" "}
 					digital systems.
@@ -53,7 +53,7 @@ export default function RegularPage() {
 					<Button
 						asChild
 						size="lg"
-						className="bg-white text-black font-mono font-bold tracking-tight rounded-none border border-white hover:bg-zinc-200 uppercase min-w-[160px] h-12"
+						className="bg-foreground text-background font-mono font-bold tracking-tight rounded-none border border-foreground hover:bg-muted hover:text-foreground uppercase min-w-[160px] h-12"
 					>
 						<Link href="/projects">[ View Projects ]</Link>
 					</Button>
@@ -61,7 +61,7 @@ export default function RegularPage() {
 						asChild
 						variant="ghost"
 						size="lg"
-						className="text-zinc-400 font-mono border border-zinc-700 hover:text-white hover:border-white rounded-none uppercase min-w-[160px] h-12 bg-black/50 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+						className="text-muted-foreground font-mono border border-border hover:text-foreground hover:border-foreground rounded-none uppercase min-w-[160px] h-12 bg-background/50 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
 					>
 						<Link href="/blog">:: Read Log ::</Link>
 					</Button>

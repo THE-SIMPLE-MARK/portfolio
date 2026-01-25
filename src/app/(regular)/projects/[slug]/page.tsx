@@ -40,7 +40,7 @@ export default function ProjectDetailPage() {
 			<div className="container mx-auto max-w-4xl">
 				<Link
 					href="/projects"
-					className="inline-flex items-center gap-2 text-zinc-500 hover:text-white mb-8 font-mono text-sm group"
+					className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 font-mono text-sm group"
 				>
 					<ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
 					BACK_TO_INDEX
@@ -76,11 +76,11 @@ export default function ProjectDetailPage() {
 							</span>
 						</div>
 
-						<h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
+						<h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground">
 							{project.title}
 						</h1>
 
-						<p className="text-xl text-zinc-300 max-w-2xl leading-relaxed">
+						<p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
 							{project.description}
 						</p>
 
@@ -88,7 +88,7 @@ export default function ProjectDetailPage() {
 							{project.techStack.map(tech => (
 								<span
 									key={tech}
-									className="font-mono text-sm px-3 py-1 bg-white/10 border border-white/10 text-white rounded-sm"
+									className="font-mono text-sm px-3 py-1 bg-foreground/10 border border-foreground/10 text-foreground rounded-sm"
 								>
 									{tech}
 								</span>
@@ -104,12 +104,12 @@ export default function ProjectDetailPage() {
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{ delay: 0.3 }}
 						className={cn(
-							"aspect-video rounded-lg bg-linear-to-br border border-white/10 relative overflow-hidden group",
+							"aspect-video rounded-lg bg-linear-to-br border border-border relative overflow-hidden group",
 							project.gradient,
 						)}
 					>
 						<div className="absolute inset-0 opacity-80" />
-						<div className="absolute inset-0 bg-noise opacity-50 mix-blend-overlay" />
+						<div className="absolute inset-0 bg-noise opacity-50 mix-blend-overlay pointer-events-none" />
 
 						{project.imageUrl ? (
 							<Image
@@ -123,12 +123,11 @@ export default function ProjectDetailPage() {
 						) : (
 							<>
 								<div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-20" />
-								<div className="absolute inset-0 flex items-center justify-center font-mono text-white/50 text-xl tracking-widest">
+								<div className="absolute inset-0 flex items-center justify-center font-mono text-foreground/50 text-xl tracking-widest">
 									[ SYSTEM VISUALIZATION ]
 								</div>
 							</>
 						)}
-						<div className="absolute inset-0 bg-noise opacity-50 mix-blend-overlay pointer-events-none" />
 					</motion.div>
 
 					<div className="flex flex-col md:flex-row gap-8 mt-8">
@@ -136,7 +135,7 @@ export default function ProjectDetailPage() {
 							<h3 className="text-2xl font-bold font-mono">
 								System Architecture
 							</h3>
-							<p className="text-zinc-400 leading-relaxed">
+							<p className="text-muted-foreground leading-relaxed">
 								Designed with a focus on scalability and performance, this
 								project leverages cutting-edge technologies to deliver optimal
 								user experience. The backend architecture ensures high
@@ -144,8 +143,10 @@ export default function ProjectDetailPage() {
 								Vitals.
 							</p>
 
-							<div className="p-4 border border-zinc-800 bg-zinc-900/50 font-mono text-sm text-zinc-400">
-								<div className="mb-2 text-zinc-500">{"// Technical Specs"}</div>
+							<div className="p-4 border border-border bg-card/50 font-mono text-sm text-muted-foreground">
+								<div className="mb-2 text-foreground/50">
+									{"// Technical Specs"}
+								</div>
 								<div className="grid grid-cols-2 gap-2">
 									<div>Latency: &lt;50ms</div>
 									<div>Uptime: 99.99%</div>
@@ -159,7 +160,7 @@ export default function ProjectDetailPage() {
 							<Button
 								asChild
 								size="lg"
-								className="w-full bg-white text-black font-mono font-bold tracking-tight rounded-none border border-white hover:bg-zinc-200 uppercase h-14"
+								className="w-full bg-foreground text-background font-mono font-bold tracking-tight rounded-none border border-foreground hover:bg-muted hover:text-foreground uppercase h-14"
 							>
 								<a
 									href={project.ctaUrl}
@@ -170,7 +171,7 @@ export default function ProjectDetailPage() {
 								</a>
 							</Button>
 
-							<div className="text-xs font-mono text-center text-zinc-600">
+							<div className="text-xs font-mono text-center text-muted-foreground">
 								SECURE CONNECTION ESTABLISHED
 							</div>
 						</div>

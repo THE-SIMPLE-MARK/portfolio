@@ -26,7 +26,7 @@ export default function ProjectsPage() {
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ delay: 0.2 }}
-						className="text-zinc-400 font-mono"
+						className="text-muted-foreground font-mono"
 					>
 						[ Selected works 2024 - 2026 ]
 					</motion.p>
@@ -54,7 +54,7 @@ function ProjectCard({
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay: index * 0.1 + 0.3 }}
-			className="group relative bg-zinc-900/50 border border-zinc-800 hover:border-zinc-600 transition-all duration-500 overflow-hidden"
+			className="group relative bg-card/50 border border-border hover:border-foreground/50 transition-all duration-500 overflow-hidden"
 		>
 			<div
 				className={cn(
@@ -65,15 +65,15 @@ function ProjectCard({
 
 			<div className="relative p-6 h-full flex flex-col z-10">
 				<div className="flex justify-between items-start mb-4">
-					<div className="font-mono text-xs text-zinc-500">
+					<div className="font-mono text-xs text-muted-foreground">
 						{(index + 1).toString().padStart(2, "0")} {"//"}
 					</div>
 					<div className="flex gap-2">
-						<div className="w-1.5 h-1.5 rounded-full bg-zinc-800 group-hover:bg-accent transition-colors" />
+						<div className="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-accent transition-colors" />
 					</div>
 				</div>
 
-				<div className="w-full aspect-video mb-6 rounded-sm overflow-hidden relative group-hover:scale-105 transition-transform duration-700 ease-out bg-zinc-900 border border-zinc-800">
+				<div className="w-full aspect-video mb-6 rounded-sm overflow-hidden relative group-hover:scale-105 transition-transform duration-700 ease-out bg-card border border-border">
 					{project.imageUrl ? (
 						<Image
 							src={project.imageUrl}
@@ -83,7 +83,7 @@ function ProjectCard({
 							onLoadingComplete={img => img.classList.remove("opacity-0")}
 						/>
 					) : (
-						<div className="absolute inset-0 flex items-center justify-center font-mono text-white text-[10px] md:text-xs tracking-[0.2em] font-bold">
+						<div className="absolute inset-0 flex items-center justify-center font-mono text-foreground text-[10px] md:text-xs tracking-[0.2em] font-bold">
 							<div
 								className={cn(
 									"absolute inset-0 bg-linear-to-br opacity-80",
@@ -91,7 +91,7 @@ function ProjectCard({
 								)}
 							/>
 							<div className="absolute inset-0 bg-noise opacity-50 mix-blend-overlay" />
-							<span className="relative z-10 px-4 text-center drop-shadow-md">
+							<span className="relative z-10 px-4 text-center drop-shadow-md text-white">
 								[ SYSTEM VISUALIZATION ]
 							</span>
 						</div>
@@ -102,7 +102,7 @@ function ProjectCard({
 					{project.title}
 				</h3>
 
-				<p className="text-sm text-zinc-400 mb-6 leading-relaxed line-clamp-4">
+				<p className="text-sm text-muted-foreground mb-6 leading-relaxed line-clamp-4">
 					{project.description}
 				</p>
 
@@ -110,14 +110,14 @@ function ProjectCard({
 					{project.techStack.map(tech => (
 						<span
 							key={tech}
-							className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 bg-white/5 border border-white/10 rounded-sm text-zinc-400"
+							className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 bg-foreground/5 border border-foreground/10 rounded-sm text-muted-foreground"
 						>
 							{tech}
 						</span>
 					))}
 				</div>
 
-				<div className="flex items-center gap-4 mt-auto pt-4 border-t border-white/5">
+				<div className="flex items-center gap-4 mt-auto pt-4 border-t border-border">
 					<Link
 						href={`/projects/${project.slug}`}
 						className="flex items-center gap-2 text-sm font-bold hover:text-accent transition-colors"
@@ -128,15 +128,15 @@ function ProjectCard({
 						href={project.ctaUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex items-center gap-2 text-sm text-white hover:text-accent transition-colors ml-auto"
+						className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors ml-auto"
 					>
 						VIEW <ExternalLink className="w-3 h-3" />
 					</a>
 				</div>
 			</div>
 
-			<div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-zinc-700 group-hover:border-accent transition-colors" />
-			<div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-zinc-700 group-hover:border-accent transition-colors" />
+			<div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-border group-hover:border-accent transition-colors" />
+			<div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-border group-hover:border-accent transition-colors" />
 		</motion.div>
 	)
 }
