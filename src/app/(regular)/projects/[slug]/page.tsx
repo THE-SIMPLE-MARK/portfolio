@@ -11,13 +11,13 @@ import { projects } from "~/data/projects"
 import { cn } from "~/lib/cn"
 
 const BG_STATUS_COLORS = {
-	DEPLOYED: "bg-emerald-500",
+	DEPLOYED: "bg-accent",
 	IN_DEVELOPMENT: "bg-amber-500",
 	INACTIVE: "bg-rose-500",
 }
 
 const TEXT_STATUS_COLORS = {
-	DEPLOYED: "text-emerald-500",
+	DEPLOYED: "text-accent",
 	IN_DEVELOPMENT: "text-amber-500",
 	INACTIVE: "text-rose-500",
 }
@@ -109,6 +109,7 @@ export default function ProjectDetailPage() {
 						)}
 					>
 						<div className="absolute inset-0 opacity-80" />
+						<div className="absolute inset-0 bg-noise opacity-50 mix-blend-overlay" />
 
 						{project.imageUrl ? (
 							<Image
@@ -127,6 +128,7 @@ export default function ProjectDetailPage() {
 								</div>
 							</>
 						)}
+						<div className="absolute inset-0 bg-noise opacity-50 mix-blend-overlay pointer-events-none" />
 					</motion.div>
 
 					<div className="flex flex-col md:flex-row gap-8 mt-8">

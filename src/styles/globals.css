@@ -8,11 +8,12 @@
 @theme {
 	--font-heading: "Atkinson Hyperlegible Next Variable", var(--font-sans);
 
+	--color-accent: var(--accent);
 	--color-fd-primary: var(--accent);
 }
 
 :root {
-	--accent: #0087be;
+	--accent: #10b981;
 }
 
 .dark {
@@ -45,6 +46,11 @@
 			@apply mx-auto;
 			height: 500px;
 		}
+
+		aside {
+			@apply backdrop-blur-md;
+			background-color: transparent !important;
+		}
 	}
 }
 
@@ -71,4 +77,8 @@
 	#nd-docs-layout {
 		@apply pt-0;
 	}
+}
+
+.bg-noise {
+	background-image: url("/noise.svg");
 }

@@ -69,7 +69,7 @@ function ProjectCard({
 						{(index + 1).toString().padStart(2, "0")} {"//"}
 					</div>
 					<div className="flex gap-2">
-						<div className="w-1.5 h-1.5 rounded-full bg-zinc-800 group-hover:bg-emerald-500 transition-colors" />
+						<div className="w-1.5 h-1.5 rounded-full bg-zinc-800 group-hover:bg-accent transition-colors" />
 					</div>
 				</div>
 
@@ -90,6 +90,7 @@ function ProjectCard({
 									project.gradient,
 								)}
 							/>
+							<div className="absolute inset-0 bg-noise opacity-50 mix-blend-overlay" />
 							<span className="relative z-10 px-4 text-center drop-shadow-md">
 								[ SYSTEM VISUALIZATION ]
 							</span>
@@ -97,7 +98,7 @@ function ProjectCard({
 					)}
 				</div>
 
-				<h3 className="text-xl font-bold font-mono tracking-tight mb-2 group-hover:text-emerald-400 transition-colors">
+				<h3 className="text-xl font-bold font-mono tracking-tight mb-2 group-hover:text-accent transition-colors">
 					{project.title}
 				</h3>
 
@@ -119,7 +120,7 @@ function ProjectCard({
 				<div className="flex items-center gap-4 mt-auto pt-4 border-t border-white/5">
 					<Link
 						href={`/projects/${project.slug}`}
-						className="flex items-center gap-2 text-sm font-bold hover:text-emerald-400 transition-colors"
+						className="flex items-center gap-2 text-sm font-bold hover:text-accent transition-colors"
 					>
 						DETAILS <ArrowUpRight className="w-4 h-4" />
 					</Link>
@@ -127,15 +128,15 @@ function ProjectCard({
 						href={project.ctaUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex items-center gap-2 text-sm text-white hover:text-emerald-400 transition-colors ml-auto"
+						className="flex items-center gap-2 text-sm text-white hover:text-accent transition-colors ml-auto"
 					>
 						VIEW <ExternalLink className="w-3 h-3" />
 					</a>
 				</div>
 			</div>
 
-			<div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-zinc-700 group-hover:border-emerald-500/50 transition-colors" />
-			<div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-zinc-700 group-hover:border-emerald-500/50 transition-colors" />
+			<div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-zinc-700 group-hover:border-accent transition-colors" />
+			<div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-zinc-700 group-hover:border-accent transition-colors" />
 		</motion.div>
 	)
 }

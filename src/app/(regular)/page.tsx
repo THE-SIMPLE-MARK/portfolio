@@ -17,7 +17,7 @@ export default function RegularPage() {
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ delay: 0.2 }}
-						className="text-emerald-500 font-mono text-sm tracking-widest uppercase mb-4"
+						className="text-accent font-mono text-sm tracking-widest uppercase mb-4"
 					>
 						System: Online
 					</motion.div>
@@ -37,7 +37,7 @@ export default function RegularPage() {
 					transition={{ delay: 2.2, duration: 1 }}
 					className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto font-mono"
 				>
-					<span className="text-emerald-500">{">"}</span> Architecting{" "}
+					<span className="text-accent">{">"}</span> Architecting{" "}
 					<span className="text-white font-bold bg-white/10 px-2 py-0.5 rounded-sm">
 						high-performance
 					</span>{" "}
@@ -68,10 +68,10 @@ export default function RegularPage() {
 				</motion.div>
 			</div>
 
-			<div className="fixed top-20 left-4 w-4 h-4 border-l-2 border-t-2 border-emerald-500/30" />
-			<div className="fixed top-20 right-4 w-4 h-4 border-r-2 border-t-2 border-emerald-500/30" />
-			<div className="fixed bottom-20 left-4 w-4 h-4 border-l-2 border-b-2 border-emerald-500/30" />
-			<div className="fixed bottom-20 right-4 w-4 h-4 border-r-2 border-b-2 border-emerald-500/30" />
+			<div className="fixed top-20 left-4 w-4 h-4 border-l-2 border-t-2 border-accent opacity-30" />
+			<div className="fixed top-20 right-4 w-4 h-4 border-r-2 border-t-2 border-accent opacity-30" />
+			<div className="fixed bottom-20 left-4 w-4 h-4 border-l-2 border-b-2 border-accent opacity-30" />
+			<div className="fixed bottom-20 right-4 w-4 h-4 border-r-2 border-b-2 border-accent opacity-30" />
 		</div>
 	)
 }

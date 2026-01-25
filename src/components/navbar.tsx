@@ -32,7 +32,7 @@ export function NavbarLink({ href, text }: { href: string; text: string }) {
 	return (
 		<Link
 			href={href}
-			className="relative text-sm font-medium hover:text-emerald-400 transition-colors uppercase tracking-widest"
+			className="relative text-sm font-medium hover:text-accent transition-colors uppercase tracking-widest"
 		>
 			{text}
 		</Link>
