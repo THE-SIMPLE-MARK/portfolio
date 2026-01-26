@@ -7,7 +7,7 @@ import Link from "next/link"
 import { PerspectiveGrid } from "~/components/perspective-grid"
 import { projects } from "~/data/projects"
 import { cn } from "~/lib/cn"
-import { STATUS_COLORS } from "~/lib/colors"
+import { BG_HOVER_STATUS_COLORS } from "~/lib/colors"
 
 export default function ProjectsPage() {
 	return (
@@ -73,7 +73,7 @@ function ProjectCard({
 						<div
 							className={cn(
 								"w-1.5 h-1.5 rounded-full bg-border transition-colors duration-300",
-								`group-hover:bg-${STATUS_COLORS[project.status]}`,
+								BG_HOVER_STATUS_COLORS[project.status],
 							)}
 						/>
 					</div>

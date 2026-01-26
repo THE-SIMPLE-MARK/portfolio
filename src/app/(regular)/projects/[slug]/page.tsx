@@ -9,7 +9,7 @@ import { notFound, useParams } from "next/navigation"
 import { PerspectiveGrid } from "~/components/perspective-grid"
 import { projects } from "~/data/projects"
 import { cn } from "~/lib/cn"
-import { STATUS_COLORS } from "~/lib/colors"
+import { BG_STATUS_COLORS, TEXT_STATUS_COLORS } from "~/lib/colors"
 
 export default function ProjectDetailPage() {
 	const params = useParams()
@@ -19,9 +19,8 @@ export default function ProjectDetailPage() {
 		notFound()
 	}
 
-	const baseColor = STATUS_COLORS[project.status]
-	const bgStatusColor = `bg-${baseColor}`
-	const textStatusColor = `text-${baseColor}`
+	const bgStatusColor = BG_STATUS_COLORS[project.status]
+	const textStatusColor = TEXT_STATUS_COLORS[project.status]
 
 	return (
 		<div className="min-h-screen pt-24 pb-20 px-4">
