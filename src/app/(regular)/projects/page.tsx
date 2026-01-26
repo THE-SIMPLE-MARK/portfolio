@@ -89,7 +89,7 @@ function ProjectCard({
 							onLoadingComplete={img => img.classList.remove("opacity-0")}
 						/>
 					) : (
-						<div className="absolute inset-0 flex items-center justify-center font-mono text-foreground text-[10px] md:text-xs tracking-[0.2em] font-bold">
+						<div className="absolute inset-0 flex items-center justify-center font-mono text-foreground text-xs tracking-widest font-bold">
 							<div
 								className={cn(
 									"absolute inset-0 bg-linear-to-br opacity-80",
@@ -116,7 +116,7 @@ function ProjectCard({
 					{project.techStack.map(tech => (
 						<span
 							key={tech}
-							className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 bg-foreground/5 border border-foreground/10 rounded-sm text-muted-foreground"
+							className="text-xs font-mono uppercase tracking-wider px-2 py-1 bg-foreground/5 border border-foreground/10 rounded-sm text-muted-foreground"
 						>
 							{tech}
 						</span>

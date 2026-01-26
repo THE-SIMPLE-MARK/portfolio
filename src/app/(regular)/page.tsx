@@ -53,7 +53,7 @@ export default function RegularPage() {
 					<Button
 						asChild
 						size="lg"
-						className="bg-foreground text-background font-mono font-bold tracking-tight rounded-none border border-foreground hover:bg-muted hover:text-foreground uppercase min-w-[160px] h-12"
+						className="bg-foreground text-background font-mono font-bold tracking-tight rounded-none border border-foreground hover:bg-muted hover:text-foreground uppercase min-w-44 h-12"
 					>
 						<Link href="/projects">[ View Projects ]</Link>
 					</Button>
@@ -61,7 +61,7 @@ export default function RegularPage() {
 						asChild
 						variant="ghost"
 						size="lg"
-						className="text-muted-foreground font-mono border border-border hover:text-foreground hover:border-foreground rounded-none uppercase min-w-[160px] h-12 bg-background/50 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+						className="text-muted-foreground font-mono border border-border hover:text-foreground hover:border-foreground rounded-none uppercase min-w-44 h-12 bg-background/50 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
 					>
 						<Link href="/blog">:: Read Log ::</Link>
 					</Button>
