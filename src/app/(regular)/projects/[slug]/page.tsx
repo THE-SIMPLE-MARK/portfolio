@@ -143,7 +143,7 @@ export default function ProjectDetailPage() {
 								Vitals.
 							</p>
 
-							<div className="p-4 border border-border bg-card/50 font-mono text-sm text-muted-foreground">
+							<div className="p-4 border border-border bg-card/70 font-mono text-sm text-muted-foreground">
 								<div className="mb-2 text-foreground/50">
 									{"// Technical Specs"}
 								</div>

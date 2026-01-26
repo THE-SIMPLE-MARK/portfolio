@@ -11,6 +11,7 @@
 	--color-accent: var(--accent);
 	--color-fd-primary: var(--accent);
 	--color-border: var(--color-fd-border);
+	--color-card: var(--color-fd-card);
 }
 
 :root {
