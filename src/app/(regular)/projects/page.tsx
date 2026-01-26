@@ -7,6 +7,7 @@ import Link from "next/link"
 import { PerspectiveGrid } from "~/components/perspective-grid"
 import { projects } from "~/data/projects"
 import { cn } from "~/lib/cn"
+import { STATUS_COLORS } from "~/lib/colors"
 
 export default function ProjectsPage() {
 	return (
@@ -69,7 +70,12 @@ function ProjectCard({
 						{(index + 1).toString().padStart(2, "0")} {"//"}
 					</div>
 					<div className="flex gap-2">
-						<div className="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-accent transition-colors" />
+						<div
+							className={cn(
+								"w-1.5 h-1.5 rounded-full bg-border transition-colors duration-300",
+								`group-hover:bg-${STATUS_COLORS[project.status]}`,
+							)}
+						/>
 					</div>
 				</div>
 
@@ -135,8 +141,16 @@ function ProjectCard({
 				</div>
 			</div>
 
-			<div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-border group-hover:border-accent transition-colors" />
-			<div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-border group-hover:border-accent transition-colors" />
+			<div
+				className={cn(
+					"absolute top-0 left-0 w-2 h-2 border-l border-t border-border group-hover:border-accent transition-colors",
+				)}
+			/>
+			<div
+				className={cn(
+					"absolute bottom-0 right-0 w-2 h-2 border-r border-b border-border group-hover:border-accent transition-colors",
+				)}
+			/>
 		</motion.div>
 	)
 }
