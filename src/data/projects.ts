@@ -13,14 +13,14 @@ export interface Project {
 
 export const projects: Project[] = [
 	{
-		slug: "idk",
-		title: "Lorem Ipsum",
+		slug: "highlighter",
+		title: "Highlighter",
 		description:
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-		gradient: "from-pink-500 via-red-500 to-yellow-500",
-		ctaUrl: "https://example.com/idk",
-		techStack: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-		status: "DEPLOYED",
+			"A native, user-friendly watchOS & iOS client for KRÉTA, the digital gradebook for Hungarian students. It also includes real-time widgets!",
+		gradient: "from-emerald-400 via-cyan-500 to-blue-500",
+		techStack: ["Swift", "SwiftUI", "Blood, sweat & tears"],
+		status: "IN_DEVELOPMENT",
+		imageUrl: "/projects/highlighter.svg",
 	},
 	{
 		slug: "something",
@@ -37,7 +37,7 @@ export const projects: Project[] = [
 		title: "Consectetur Elit",
 		description:
 			"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-		gradient: "from-emerald-400 via-cyan-500 to-blue-500",
+		gradient: "from-pink-500 via-red-500 to-yellow-500",
 		ctaUrl: "https://example.com/store",
 		techStack: ["Node.js", "GraphQL", "PostgreSQL", "Stripe"],
 		status: "INACTIVE",
