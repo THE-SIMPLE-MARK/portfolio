@@ -29,7 +29,7 @@ export default function ProjectsPage() {
 						transition={{ delay: 0.2 }}
 						className="text-muted-foreground font-mono"
 					>
-						[ Selected works 2024 - 2026 ]
+						[ Selected works 2025 - 2026 ]
 					</motion.p>
 				</header>
 
