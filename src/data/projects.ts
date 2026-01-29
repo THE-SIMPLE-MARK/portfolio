@@ -6,7 +6,7 @@ export interface Project {
 	description: string
 	gradient: string
 	imageUrl?: string
-	ctaUrl: string
+	ctaUrl?: string
 	techStack: string[]
 	status: ProjectStatus
 }

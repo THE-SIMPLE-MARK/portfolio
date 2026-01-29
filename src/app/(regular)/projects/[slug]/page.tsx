@@ -145,25 +145,27 @@ export default function ProjectDetailPage() {
 							</div>
 						</div>
 
-						<div className="w-full md:w-64 shrink-0 space-y-4">
-							<Button
-								asChild
-								size="lg"
-								className="w-full bg-foreground text-background font-mono font-bold tracking-tight rounded-none border border-foreground hover:bg-muted hover:text-foreground uppercase h-14"
-							>
-								<a
-									href={project.ctaUrl}
-									target="_blank"
-									rel="noopener noreferrer"
+						{project.ctaUrl && (
+							<div className="w-full md:w-64 shrink-0 space-y-4">
+								<Button
+									asChild
+									size="lg"
+									className="w-full bg-foreground text-background font-mono font-bold tracking-tight rounded-none border border-foreground hover:bg-muted hover:text-foreground uppercase h-14"
 								>
-									Launch Project <ExternalLink className="ml-2 w-4 h-4" />
-								</a>
-							</Button>
+									<a
+										href={project.ctaUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Launch Project <ExternalLink className="ml-2 w-4 h-4" />
+									</a>
+								</Button>
 
-							<div className="text-xs font-mono text-center text-muted-foreground">
-								SECURE CONNECTION ESTABLISHED
+								<div className="text-xs font-mono text-center text-muted-foreground">
+									SECURE CONNECTION ESTABLISHED
+								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				</div>
 			</div>

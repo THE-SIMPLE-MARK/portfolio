@@ -5,7 +5,7 @@ import { ArrowUpRight, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { PerspectiveGrid } from "~/components/perspective-grid"
-import { projects } from "~/data/projects"
+import { type Project, projects } from "~/data/projects"
 import { cn } from "~/lib/cn"
 import { BG_HOVER_STATUS_COLORS } from "~/lib/colors"
 
@@ -43,13 +43,7 @@ export default function ProjectsPage() {
 	)
 }
 
-function ProjectCard({
-	project,
-	index,
-}: {
-	project: (typeof projects)[0]
-	index: number
-}) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
@@ -130,14 +124,17 @@ function ProjectCard({
 					>
 						DETAILS <ArrowUpRight className="w-4 h-4" />
 					</Link>
-					<a
-						href={project.ctaUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors ml-auto"
-					>
-						VIEW <ExternalLink className="w-3 h-3" />
-					</a>
+
+					{project.ctaUrl && (
+						<a
+							href={project.ctaUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors ml-auto"
+						>
+							VIEW <ExternalLink className="w-3 h-3" />
+						</a>
+					)}
 				</div>
 			</div>
 
