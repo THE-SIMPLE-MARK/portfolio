@@ -13,14 +13,14 @@ export default function RegularPage() {
 
 			<div className="space-y-8 z-10 max-w-4xl mx-auto px-4">
 				<div className="space-y-2">
-					<motion.div
+					<motion.p
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.2 }}
+						transition={{ delay: 2.2 }}
 						className="text-accent font-mono text-sm tracking-widest uppercase mb-4"
 					>
-						System: Online
-					</motion.div>
+						Portfolio
+					</motion.p>
 
 					<h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground">
 						<TextScramble delay={0.5}>Márk</TextScramble>
