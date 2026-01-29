@@ -35,7 +35,12 @@ export default function ProjectsPage() {
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{projects.map((project, index) => (
-						<ProjectCard key={project.slug} project={project} index={index} />
+						<ProjectCard
+							key={project.slug}
+							project={project}
+							index={index}
+							shouldCenter={projects.length === 1}
+						/>
 					))}
 				</div>
 			</div>
@@ -43,13 +48,24 @@ export default function ProjectsPage() {
 	)
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({
+	project,
+	index,
+	shouldCenter,
+}: {
+	project: Project
+	index: number
+	shouldCenter: boolean
+}) {
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay: index * 0.1 + 0.3 }}
-			className="group relative bg-card/50 border border-border hover:border-foreground/50 transition-all duration-500 overflow-hidden"
+			className={cn(
+				"group relative bg-card/50 border border-border hover:border-foreground/50 transition-all duration-500 overflow-hidden",
+				shouldCenter && "md:col-start-2 lg:col-start-2",
+			)}
 		>
 			<div
 				className={cn(
