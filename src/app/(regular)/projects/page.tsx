@@ -103,7 +103,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 				</h3>
 
 				<p className="text-sm text-muted-foreground mb-6 leading-relaxed line-clamp-4">
-					{project.description}
+					{project.overview}
 				</p>
 
 				<div className="flex flex-wrap gap-2 mb-6">

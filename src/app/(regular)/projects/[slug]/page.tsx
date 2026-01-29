@@ -15,9 +15,7 @@ export default function ProjectDetailPage() {
 	const params = useParams()
 	const project = projects.find(p => p.slug === params.slug)
 
-	if (!project) {
-		notFound()
-	}
+	if (!project) notFound()
 
 	const bgStatusColor = BG_STATUS_COLORS[project.status]
 	const textStatusColor = TEXT_STATUS_COLORS[project.status]
@@ -70,7 +68,7 @@ export default function ProjectDetailPage() {
 						</h1>
 
 						<p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-							{project.description}
+							{project.overview}
 						</p>
 
 						<div className="flex flex-wrap gap-2 pt-4">
@@ -87,7 +85,6 @@ export default function ProjectDetailPage() {
 				</header>
 
 				<div className="grid gap-8">
-					{/* Main Visual */}
 					<motion.div
 						initial={{ opacity: 0, scale: 0.95 }}
 						animate={{ opacity: 1, scale: 1 }}
@@ -119,17 +116,30 @@ export default function ProjectDetailPage() {
 						)}
 					</motion.div>
 
-					<div className="flex flex-col md:flex-row gap-8 mt-8">
+					<div className="space-y-2">
+						{Array.isArray(project.description) ? (
+							project.description.map(paragraph => (
+								<p
+									key={paragraph}
+									className="text-muted-foreground leading-relaxed"
+								>
+									{paragraph}
+								</p>
+							))
+						) : (
+							<p className="text-muted-foreground leading-relaxed">
+								{project.description}
+							</p>
+						)}
+					</div>
+
+					<div className="flex flex-col md:flex-row gap-8">
 						<div className="flex-1 space-y-6">
 							<h3 className="text-2xl font-bold font-mono">
 								System Architecture
 							</h3>
 							<p className="text-muted-foreground leading-relaxed">
-								Designed with a focus on scalability and performance, this
-								project leverages cutting-edge technologies to deliver optimal
-								user experience. The backend architecture ensures high
-								availability while the frontend is optimized for Core Web
-								Vitals.
+								{project.architecture}
 							</p>
 
 							<div className="p-4 border border-border bg-card/70 font-mono text-sm text-muted-foreground">
@@ -137,10 +147,11 @@ export default function ProjectDetailPage() {
 									{"// Technical Specs"}
 								</div>
 								<div className="grid grid-cols-2 gap-2">
-									<div>Latency: &lt;50ms</div>
-									<div>Uptime: 99.99%</div>
-									<div>Build: v2.4.0</div>
-									<div>Region: global-edge</div>
+									{Object.entries(project.specs).map(([key, value]) => (
+										<div key={key}>
+											{key}: {value}
+										</div>
+									))}
 								</div>
 							</div>
 						</div>
