@@ -21,7 +21,7 @@ export default function ProjectsPage() {
 						animate={{ opacity: 1, y: 0 }}
 						className="text-4xl md:text-6xl font-bold font-mono tracking-tighter"
 					>
-						Index / Projects
+						Personal Projects
 					</motion.h1>
 					<motion.p
 						initial={{ opacity: 0 }}

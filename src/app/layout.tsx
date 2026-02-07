@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
+import { ThemeProvider } from "next-themes"
 
 export const metadata: Metadata = {
 	title: "Márk's Portfolio",
@@ -21,7 +22,9 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`${geist.variable}`} suppressHydrationWarning>
 			<body>
-				{children}
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+					{children}
+				</ThemeProvider>
 				<Analytics scriptSrc="/a/script.js" />
 				<SpeedInsights scriptSrc="/si/script.js" />
 			</body>
