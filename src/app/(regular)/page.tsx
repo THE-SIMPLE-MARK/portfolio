@@ -19,7 +19,7 @@ export default function RegularPage() {
 						transition={{ delay: 2.2 }}
 						className="text-accent font-mono text-sm tracking-widest uppercase mb-4"
 					>
-						Portfolio
+						Freelance developer
 					</motion.p>
 
 					<h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground">
