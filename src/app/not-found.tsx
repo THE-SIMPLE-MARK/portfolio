@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { HeroLayout } from "~/components/hero-layout"
+import { HeroLayout } from "~/components/heroLayout"
 import { PrimaryButton } from "~/components/primary-button"
 import { SecondaryButton } from "~/components/secondary-button"
 

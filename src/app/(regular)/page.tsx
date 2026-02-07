@@ -1,14 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { HeroLayout } from "~/components/hero-layout"
 import { PrimaryButton } from "~/components/primary-button"
 import { SecondaryButton } from "~/components/secondary-button"
 import { TextScramble } from "~/components/text-scramble"
 
 export default function RegularPage() {
 	return (
-		<HeroLayout>
+		<>
 			<div className="space-y-2">
 				<motion.p
 					initial={{ opacity: 0, y: 20 }}
@@ -50,6 +49,6 @@ export default function RegularPage() {
 				<PrimaryButton href="/projects">[ View Projects ]</PrimaryButton>
 				<SecondaryButton href="/blog">:: Read Log ::</SecondaryButton>
 			</motion.div>
-		</HeroLayout>
+		</>
 	)
 }
