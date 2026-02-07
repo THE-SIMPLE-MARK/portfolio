@@ -1,13 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { HeroLayout } from "~/components/heroLayout"
+import { HeroContent } from "~/components/heroContent"
 import { PrimaryButton } from "~/components/primary-button"
 import { SecondaryButton } from "~/components/secondary-button"
 
 export default function NotFound() {
 	return (
-		<HeroLayout>
+		<HeroContent>
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
@@ -39,6 +39,6 @@ export default function NotFound() {
 				<PrimaryButton href="/">[ Return Home ]</PrimaryButton>
 				<SecondaryButton href="/projects">:: View Projects ::</SecondaryButton>
 			</motion.div>
-		</HeroLayout>
+		</HeroContent>
 	)
 }

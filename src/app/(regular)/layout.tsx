@@ -1,9 +1,9 @@
-import { HeroLayout } from "~/components/heroLayout"
+import { AppLayout } from "~/components/appLayout"
 
 export default function RegularLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
-	return <HeroLayout>{children}</HeroLayout>
+	return <AppLayout>{children}</AppLayout>
 }
