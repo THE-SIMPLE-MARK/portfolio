@@ -51,6 +51,7 @@
 
 		aside {
 			@apply backdrop-blur-md;
+			/* biome-ignore lint/complexity/noImportantStyles: we need to override the background color */
 			background-color: transparent !important;
 		}
 	}
